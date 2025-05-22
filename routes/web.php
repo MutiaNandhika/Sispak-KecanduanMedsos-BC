@@ -19,10 +19,13 @@ Route::post('/login', function (Request $request) {
     return redirect('/user');
 });
 
-// Register form
 Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
+
+Route::post('/register', function () {
+    return redirect('/login'); // simulasi saja
+});
 
 // Dummy pages
 Route::view('/admin', 'admin.dashboard');
