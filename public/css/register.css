@@ -3,66 +3,87 @@
 }
 
 body {
+    position: relative; /* penting untuk logo absolute */
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
     height: 100vh;
+    background: linear-gradient(to bottom, #b8e5e8, #fce38a);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to bottom, #b8e5e8, #fce38a);
 }
 
+/* Logo pojok kiri atas */
+.auth-logo {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    z-index: 10;
+}
+
+.auth-logo img {
+    height: 55px;
+    width: auto;
+}
+
+/* Container register */
 .register-container {
     background-color: #bfe9e8;
-    padding: 2.5rem;
+    padding-left: 50px ;
+    padding-right: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     border-radius: 20px;
-    width: 420px;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
+/* Judul */
 .register-container h2 {
     color: #205c59;
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 2rem;
+    font-size: 2.6rem;
+    font-weight: 700;
+    margin-bottom: 2.2rem;
 }
 
+/* Input group */
 .input-group {
     position: relative;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.8rem;
 }
 
 .input-group .icon {
     position: absolute;
     top: 50%;
-    left: 14px;
+    left: 16px;
     transform: translateY(-50%);
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     opacity: 0.8;
 }
 
 .input-group input {
     width: 100%;
-    padding: 12px 12px 12px 44px;
-    border-radius: 15px;
+    padding: 14px 16px 14px 50px;
+    border-radius: 16px;
     border: none;
     background-color: rgba(255, 255, 255, 0.7);
-    font-size: 1rem;
+    font-size: 1.05rem;
     color: #333;
     outline: none;
     font-family: 'Poppins', sans-serif;
 }
 
+/* Tombol */
 button[type="submit"] {
     background-color: #2f6461;
     color: white;
-    padding: 12px;
+    padding: 14px;
     width: 100%;
     border: none;
-    border-radius: 25px;
-    font-size: 1rem;
+    border-radius: 30px;
+    font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
     margin-top: 1rem;
@@ -73,14 +94,15 @@ button[type="submit"]:hover {
     background-color: #24514f;
 }
 
+/* Teks login */
 .login-text {
-    margin-top: 1.5rem;
+    margin-top: 1.8rem;
     color: #205c59;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .login-text a {
-    font-weight: bold;
+    font-weight: 600;
     color: #205c59;
     text-decoration: none;
 }
