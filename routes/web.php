@@ -29,5 +29,13 @@ Route::post('/register', function () {
 
 // Dummy pages
 Route::view('/admin', 'admin.dashboard');
+
 Route::view('/user', 'user.beranda');
+Route::view('/diagnosa', 'user.diagnosa');
+Route::post('/output-tingkatan', function () {
+    return view('user.output-tingkatan'); // buat view sesuai kebutuhanmu
+});
+Route::view('/output-tingkatan', 'user.output-tingkatan')->name('output');
+
+
 Route::view('/pakar', 'pakar.dashboard');

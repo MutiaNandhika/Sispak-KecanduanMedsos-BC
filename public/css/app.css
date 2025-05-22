@@ -33,15 +33,3 @@ button {
     cursor: pointer;
 }
 
-nav ul {
-    list-style: none;
-    background: #fff;
-    display: flex;
-    gap: 1rem;
-    padding: 1rem;
-    border-bottom: 1px solid #ccc;
-}
-
-nav ul li {
-    display: inline;
-}
