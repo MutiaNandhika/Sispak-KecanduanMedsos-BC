@@ -12,3 +12,15 @@
     /* Pastikan tidak terlalu tinggi */
     height: auto;
 }
+
+/* Footer khusus admin */
+.admin-footer {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    color: #7c6f95;
+    background-color: #fff;
+    text-align: left;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+    margin-top: auto; /* dorong ke bawah jika tinggi kurang */
+}

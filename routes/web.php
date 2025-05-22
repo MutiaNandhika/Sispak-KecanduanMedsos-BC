@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 // Welcome page
 Route::get('/', function () {
@@ -29,6 +30,13 @@ Route::post('/register', function () {
 
 // Dummy pages
 Route::view('/admin', 'admin.dashboard');
+Route::prefix('admin')->group(function () {
+    Route::view('/', 'admin.dashboard')->name('admin.dashboard');
+    Route::view('/diagnosa', 'admin.diagnosa')->name('admin.diagnosa.index');
+    Route::view('/gejala', 'admin.gejala')->name('admin.gejala.index');
+    Route::view('/solusi', 'admin.solusi')->name('admin.solusi.index');
+    Route::view('/pengguna', 'admin.pengguna')->name('admin.pengguna.index');
+});
 
 Route::view('/user', 'user.beranda');
 Route::view('/pertanyaan', 'user.pertanyaan');
@@ -37,5 +45,9 @@ Route::post('/output-tingkatan', function () {
 });
 Route::view('/output-tingkatan', 'user.output-tingkatan')->name('output');
 
-
 Route::view('/pakar', 'pakar.dashboard');
+
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/'); // Atau ke halaman login
+})->name('logout');
