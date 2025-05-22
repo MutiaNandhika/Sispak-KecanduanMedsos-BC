@@ -10,7 +10,7 @@
 <div class="output-wrapper">
 
     <div class="back-button">
-        <a href="{{ url('/diagnosa') }}">⬅ <span>Back</span></a>
+        <a href="{{ url('/pertanyaan') }}">⬅ <span>Back</span></a>
     </div>
 
     <div class="output-container">

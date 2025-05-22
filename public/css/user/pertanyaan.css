@@ -5,13 +5,13 @@ body {
     background-color: #fff;
 }
 
-.diagnosa-container {
+.pertanyaan-container {
     max-width: 800px;
     margin: 2rem auto;
     padding: 0 1rem;
 }
 
-.diagnosa-header {
+.pertanyaan-header {
     background: linear-gradient(to right, #b8e5e8, #dcccf2);
     padding: 1rem 1.5rem;
     border-radius: 12px;
@@ -20,30 +20,30 @@ body {
     box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
 }
 
-.diagnosa-header h3 {
+.pertanyaan-header h3 {
     margin: 0;
     color: #205c59;
     font-weight: 700;
     font-size: 1.2rem;
 }
 
-.diagnosa-question {
+.pertanyaan-question {
     margin-bottom: 1.5rem;
     color: #5f4d7a;
     font-size: 1rem;
 }
 
-.diagnosa-question label {
+.pertanyaan-question label {
     margin-right: 1rem;
     margin-left: 0.5rem;
 }
 
-.diagnosa-submit {
+.pertanyaan-submit {
     margin-top: 2rem;
     text-align: left;
 }
 
-.diagnosa-submit button {
+.pertanyaan-submit button {
     background: #7b5ea3;
     border: none;
     padding: 12px 30px;
@@ -56,7 +56,7 @@ body {
     transition: transform 0.2s ease;
 }
 
-.diagnosa-submit button:hover {
+.pertanyaan-submit button:hover {
     background: #684d8f;
     transform: translateY(-2px); /* sedikit naik saat hover */
 }

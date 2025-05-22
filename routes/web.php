@@ -31,7 +31,7 @@ Route::post('/register', function () {
 Route::view('/admin', 'admin.dashboard');
 
 Route::view('/user', 'user.beranda');
-Route::view('/diagnosa', 'user.diagnosa');
+Route::view('/pertanyaan', 'user.pertanyaan');
 Route::post('/output-tingkatan', function () {
     return view('user.output-tingkatan'); // buat view sesuai kebutuhanmu
 });
