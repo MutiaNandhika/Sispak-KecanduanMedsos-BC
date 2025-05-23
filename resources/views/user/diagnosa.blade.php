@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="diagnosa-container">
-    <h2><b>Tes Tingkat Kecanduan Media Sosial</b></h2>
+    <h1>Tes Tingkat Kecanduan Media Sosial</h1>
     <p>Seberapa terikat Anda pada media sosial? Yuk, ikuti tes ini untuk mengetahui tingkat kecanduan Anda dan ambil langkah pertama untuk mengendalikannya!</p>
     <a href="{{ url('/pertanyaan') }}" class="btn">Mulai Tes</a>
 </div>
