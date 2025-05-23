@@ -7,6 +7,7 @@ use App\Http\Controllers\DiagnosaController;
 use App\Http\Controllers\GejalaController;
 use App\Http\Controllers\SolusiController;
 use App\Http\Controllers\PertanyaanController;
+use App\Http\Controllers\PenggunaController;
 
 // Welcome page
 Route::get('/', function () {
@@ -68,6 +69,14 @@ Route::prefix('admin/pertanyaan')->name('admin.pertanyaan.')->group(function () 
     Route::delete('/{id}', [PertanyaanController::class, 'destroy'])->name('destroy');
 });
 
+Route::prefix('admin/pengguna')->name('admin.pengguna.')->group(function () {
+    Route::get('/', [PenggunaController::class, 'index'])->name('index');
+    Route::get('/create', [PenggunaController::class, 'create'])->name('create');
+    Route::post('/', [PenggunaController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [PenggunaController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [PenggunaController::class, 'update'])->name('update');
+    Route::delete('/{id}', [PenggunaController::class, 'destroy'])->name('destroy');
+});
 
 // User pages
 Route::view('/user', 'user.beranda');
