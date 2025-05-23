@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DiagnosaController;
 use App\Http\Controllers\GejalaController;
 use App\Http\Controllers\SolusiController;
+use App\Http\Controllers\PertanyaanController;
 
 // Welcome page
 Route::get('/', function () {
@@ -57,6 +58,17 @@ Route::prefix('admin/solusi')->name('admin.solusi.')->group(function () {
     Route::put('/{id}', [SolusiController::class, 'update'])->name('update');
     Route::delete('/{id}', [SolusiController::class, 'destroy'])->name('destroy');
 });
+
+Route::prefix('admin/pertanyaan')->name('admin.pertanyaan.')->group(function () {
+    Route::get('/', [PertanyaanController::class, 'index'])->name('index');
+    Route::get('/create', [PertanyaanController::class, 'create'])->name('create');
+    Route::post('/', [PertanyaanController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [PertanyaanController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [PertanyaanController::class, 'update'])->name('update');
+    Route::delete('/{id}', [PertanyaanController::class, 'destroy'])->name('destroy');
+});
+
+
 // User pages
 Route::view('/user', 'user.beranda');
 Route::view('/diagnosa', 'user.diagnosa');

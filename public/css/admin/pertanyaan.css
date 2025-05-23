@@ -1,0 +1,92 @@
+.dashboard-content {
+    margin: 0 !important;
+    max-width: 100% !important;
+    padding: 0 1.5rem !important;
+}
+
+.pertanyaan-container {
+    margin: 1.5rem 0 2rem 0; /* Atas 1.5rem, bawah 2rem */
+    padding: 0 1.5rem;
+    width: 100%;
+}
+
+/* Judul Halaman */
+.pertanyaan-title {
+    display: none;
+}
+
+
+/* Tombol Tambah */
+.pertanyaan-actions {
+    text-align: left;
+    margin-top: 1.5rem; /* Tambahkan jarak dari topbar */
+    margin-bottom: 1.2rem;
+}
+
+.table-wrapper {
+    margin-bottom: 2rem; /* Tambahkan jarak dari footer */
+}
+
+.tambah-btn {
+    background-color: #7e57c2;
+    color: #fff;
+    padding: 0.55rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    transition: 0.3s ease;
+    display: inline-block;
+}
+
+.tambah-btn:hover {
+    background-color: #6a48a8;
+}
+
+/* Tabel */
+.pertanyaan-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    font-size: 0.95rem;
+}
+
+.pertanyaan-table thead {
+    background-color: #f5f5fc;
+}
+
+.pertanyaan-table th,
+.pertanyaan-table td {
+    padding: 0.9rem 1rem;
+    text-align: left;
+    border: 1px solid #e0e0e0;
+    vertical-align: middle;
+}
+
+.pertanyaan-table th {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Aksi */
+.action-icons {
+    display: flex;
+    gap: 0.7rem;
+    align-items: center;
+}
+
+.edit-icon,
+.delete-icon {
+    font-size: 1.1rem;
+    text-decoration: none;
+}
+
+.edit-icon {
+    color: #1976d2;
+}
+
+.delete-icon {
+    color: #d32f2f;
+}
