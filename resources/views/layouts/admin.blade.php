@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/admin/admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
+    
     @stack('styles')
 </head>
 <body>
@@ -70,9 +71,14 @@
             @yield('content')
         </main>
 
-        <!-- Footer Khusus Admin -->
+                <!-- Footer Khusus Admin -->
         @include('partials.footer-admin')
     </div>
 </div>
+
+<!-- Script SweetAlert & lainnya -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@stack('scripts')
 </body>
 </html>
+

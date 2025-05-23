@@ -3,54 +3,53 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DiagnosaController;
 
 // Welcome page
 Route::get('/', function () {
     return view('welcome');
 });
 
-// GET login form — kasih nama 'login' untuk route('login')
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+// Login & Register
+Route::get('/login', fn () => view('auth.login'))->name('login');
+Route::post('/login', fn (Request $request) => redirect('/user'));
+Route::get('/register', fn () => view('auth.register'))->name('register');
+Route::post('/register', fn () => redirect('/login'));
 
-// POST login form — tidak perlu pakai name('login') agar tidak konflik
-Route::post('/login', function (Request $request) {
-    // Simulasi login sukses: redirect ke halaman user
-    return redirect('/user');
-});
-
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register');
-
-Route::post('/register', function () {
-    return redirect('/login'); // simulasi saja
-});
-
-// Dummy pages
+// Admin Dashboard & Pages
 Route::view('/admin', 'admin.dashboard');
+
 Route::prefix('admin')->group(function () {
     Route::view('/', 'admin.dashboard')->name('admin.dashboard');
-    Route::view('/diagnosa', 'admin.diagnosa')->name('admin.diagnosa.index');
     Route::view('/gejala', 'admin.gejala')->name('admin.gejala.index');
     Route::view('/solusi', 'admin.solusi')->name('admin.solusi.index');
     Route::view('/pengguna', 'admin.pengguna')->name('admin.pengguna.index');
 });
 
+// ✅ FIXED Diagnosa CRUD routes - Full grouped under `admin.diagnosa.*`
+Route::prefix('admin/diagnosa')->name('admin.diagnosa.')->group(function () {
+    Route::get('/', [DiagnosaController::class, 'index'])->name('index');
+    Route::get('/create', [DiagnosaController::class, 'create'])->name('create');
+    Route::post('/', [DiagnosaController::class, 'store'])->name('store'); // ✅ Store Route Fixed
+    Route::get('/{id}/edit', [DiagnosaController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [DiagnosaController::class, 'update'])->name('update'); // ✅ Update Route Fixed
+    Route::delete('/{id}', [DiagnosaController::class, 'destroy'])->name('destroy');
+});
+
+// User pages
 Route::view('/user', 'user.beranda');
 Route::view('/diagnosa', 'user.diagnosa');
 Route::view('/pertanyaan', 'user.pertanyaan');
-Route::post('/output-tingkatan', function () {
-    return view('user.output-tingkatan'); // buat view sesuai kebutuhanmu
-});
+Route::post('/output-tingkatan', fn () => view('user.output-tingkatan'));
 Route::view('/output-tingkatan', 'user.output-tingkatan')->name('output');
 Route::view('/output-failed', 'user.output-failed');
 Route::view('/profil', 'user.profil');
 
+// Pakar page
 Route::view('/pakar', 'pakar.dashboard');
 
+// Logout
 Route::get('/logout', function () {
     Auth::logout();
-    return redirect('/'); // Atau ke halaman login
+    return redirect('/');
 })->name('logout');
