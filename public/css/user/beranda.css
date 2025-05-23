@@ -61,33 +61,56 @@ p {
   background-color: #2779bd;
 }
 
+.right-side h2 {
+  color: #7D6898;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.25rem;
+}
 
 .levels-vertical {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1.5rem;
   margin-top: 1rem;
+  width: 100%;
+  align-items: center;
 }
 
 .level-btn {
-  font-size: 1.1rem;
-  background: linear-gradient(to right, #B1E4E3, #EBDEFC, #FED141);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
   width: 300px;
   height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
   font-weight: 600;
-  color: #555;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  cursor: pointer;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
   transition: transform 0.2s ease;
-  margin-bottom: 1rem;
+  cursor: default;
+}
+
+/* Warna setiap level */
+.level-1 {
+  background-color: #4CC0BE; /* Tidak Kecanduan */
+}
+
+.level-2 {
+  background-color: #319E9C; /* Mulai Beresiko */
+}
+
+.level-3 {
+  background-color: #2A8280; /* Kecanduan Ringan */
+}
+
+.level-4 {
+  background-color: #1E5B5A; /* Kecanduan Sedang */
+}
+
+.level-5 {
+  background-color: #103231; /* Kecanduan Berat */
 }
 
 .level-btn:hover {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }

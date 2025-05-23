@@ -18,11 +18,11 @@
     <div class="right-side">
         <h2><b>Kenali 5 tingkat kecanduan media sosial</b></h2>
         <div class="levels-vertical">
-            <button class="level-btn">Tidak Kecanduan</button>
-            <button class="level-btn">Mulai Beresiko</button>
-            <button class="level-btn">Kecanduan Ringan</button>
-            <button class="level-btn">Kecanduan Sedang</button>
-            <button class="level-btn">Kecanduan Berat</button>
+            <button class="level-btn level-1">Tidak Kecanduan</button>
+            <button class="level-btn level-2">Mulai Beresiko</button>
+            <button class="level-btn level-3">Kecanduan Ringan</button>
+            <button class="level-btn level-4">Kecanduan Sedang</button>
+            <button class="level-btn level-5">Kecanduan Berat</button>
         </div>
     </div>
 </div>
