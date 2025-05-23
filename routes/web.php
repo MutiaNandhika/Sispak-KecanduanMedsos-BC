@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DiagnosaController;
 use App\Http\Controllers\GejalaController;
+use App\Http\Controllers\SolusiController;
 
 // Welcome page
 Route::get('/', function () {
@@ -25,6 +26,7 @@ Route::prefix('admin')->group(function () {
     Route::view('/gejala', 'admin.gejala')->name('admin.gejala.index');
     Route::view('/solusi', 'admin.solusi')->name('admin.solusi.index');
     Route::view('/pengguna', 'admin.pengguna')->name('admin.pengguna.index');
+    Route::view('/pertanyaan', 'admin.pertanyaan')->name('admin.pertanyaan.index');
 });
 
 Route::prefix('admin/gejala')->name('admin.gejala.')->group(function () {
@@ -46,6 +48,15 @@ Route::prefix('admin/diagnosa')->name('admin.diagnosa.')->group(function () {
     Route::delete('/{id}', [DiagnosaController::class, 'destroy'])->name('destroy');
 });
 
+// Solusi Admin Route Group
+Route::prefix('admin/solusi')->name('admin.solusi.')->group(function () {
+    Route::get('/', [SolusiController::class, 'index'])->name('index');
+    Route::get('/create', [SolusiController::class, 'create'])->name('create');
+    Route::post('/', [SolusiController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [SolusiController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [SolusiController::class, 'update'])->name('update');
+    Route::delete('/{id}', [SolusiController::class, 'destroy'])->name('destroy');
+});
 // User pages
 Route::view('/user', 'user.beranda');
 Route::view('/diagnosa', 'user.diagnosa');
@@ -61,5 +72,6 @@ Route::view('/pakar', 'pakar.dashboard');
 // Logout
 Route::get('/logout', function () {
     Auth::logout();
-    return redirect('/');
+    return redirect()->route('login');
 })->name('logout');
+

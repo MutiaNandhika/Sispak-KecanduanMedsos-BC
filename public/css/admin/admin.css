@@ -35,7 +35,7 @@ html, body {
 }
 
 .sidebar .logo {
-    margin-bottom: 2rem;
+    margin-bottom: 0; /* atau bisa dihapus jadi 0 */
     text-align: center;
 }
 

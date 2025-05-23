@@ -30,12 +30,17 @@
     </li>
     <li class="{{ request()->is('admin/gejala*') ? 'active' : '' }}">
         <a href="{{ route('admin.gejala.index') }}">
-            <span>❓</span> Gejala
+            <span>📝</span> Gejala
         </a>
     </li>
     <li class="{{ request()->is('admin/solusi*') ? 'active' : '' }}">
         <a href="{{ route('admin.solusi.index') }}">
             <span>📢</span> Solusi
+        </a>
+    </li>
+    <li class="{{ request()->is('admin/pertanyaan*') ? 'active' : '' }}">
+        <a href="{{ route('admin.pertanyaan.index') }}">
+            <span>❓</span> Pertanyaan
         </a>
     </li>
     <li class="{{ request()->is('admin/pengguna*') ? 'active' : '' }}">
@@ -45,12 +50,12 @@
     </li>
     <li class="logout">
         <a href="{{ route('logout') }}"
-           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <span>⬅️</span> Keluar
-        </a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
+   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+    <span>⬅️</span> Keluar
+</a>
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>
     </li>
 </ul>
 
