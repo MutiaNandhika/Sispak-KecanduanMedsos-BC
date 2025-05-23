@@ -87,7 +87,6 @@ html, body {
 }
 
 /* TOPBAR */
-/* TOPBAR */
 .topbar {
     width: 100%;
     background-color: #fff;
@@ -105,4 +104,13 @@ html, body {
     line-height: 1.4;
     padding-left: 1rem;  /* Jarak dari sisi kiri kontainer topbar */
     padding-right: 0.25rem;
+    padding-bottom: 0.5rem;
 }
+
+.dashboard-content {
+    padding-top: 0rem;         /* Supaya tidak ada jarak di atas */
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    flex: 1;
+}
+
