@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DiagnosaController;
+use App\Http\Controllers\GejalaController;
 
 // Welcome page
 Route::get('/', function () {
@@ -24,6 +25,15 @@ Route::prefix('admin')->group(function () {
     Route::view('/gejala', 'admin.gejala')->name('admin.gejala.index');
     Route::view('/solusi', 'admin.solusi')->name('admin.solusi.index');
     Route::view('/pengguna', 'admin.pengguna')->name('admin.pengguna.index');
+});
+
+Route::prefix('admin/gejala')->name('admin.gejala.')->group(function () {
+    Route::get('/', [GejalaController::class, 'index'])->name('index');
+    Route::get('/create', [GejalaController::class, 'create'])->name('create');
+    Route::post('/', [GejalaController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [GejalaController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [GejalaController::class, 'update'])->name('update');
+    Route::delete('/{id}', [GejalaController::class, 'destroy'])->name('destroy');
 });
 
 // ✅ FIXED Diagnosa CRUD routes - Full grouped under `admin.diagnosa.*`
