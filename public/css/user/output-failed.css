@@ -1,0 +1,50 @@
+/* Pastikan halaman penuh dan konten terpusat */
+.output-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertikal */
+    align-items: center;      /* Horizontal */
+    min-height: calc(100vh - 120px); /* Sesuaikan tinggi layar, kurangi navbar+footer */
+    padding: 2rem;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Gambar profil */
+.profil-photo img {
+    width: 250px; /* diperbesar */
+    height: 250px; /* diperbesar */
+    object-fit: cover;
+    margin-bottom: 1.2rem;
+
+    transform: rotate(-15deg); /* membuat miring ke kiri */
+    transition: transform 0.3s ease; /* animasi halus saat hover (opsional) */
+}
+
+.profil-photo img:hover {
+    transform: rotate(0deg); /* bisa kembali tegak saat dihover, opsional */
+}
+
+
+/* Judul */
+.output-container h2 {
+    font-size: 1.5rem;
+    color: #d94a4a;
+    margin-bottom: 1.5rem;
+    max-width: 90%;
+}
+
+/* Tombol */
+.output-container .btn {
+    padding: 0.6rem 1.2rem;
+    background-color: #7D6898;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.output-container .btn:hover {
+    background-color: #5e4a75;
+}

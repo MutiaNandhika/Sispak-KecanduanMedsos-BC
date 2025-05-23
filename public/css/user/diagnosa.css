@@ -1,0 +1,35 @@
+.diagnosa-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;     
+  justify-content: center; 
+  height: calc(100vh - 80px);           
+  text-align: center;
+  padding: 2rem;
+}
+
+.iagnosa-container h2 {
+  color: #7D6898;
+  margin-bottom: 1rem;
+}
+
+.diagnosa-container p {
+  max-width: 600px;
+  margin-bottom: 2rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+.diagnosa-container .btn {
+  background-color: #7D6898;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.diagnosa-container .btn:hover {
+  background-color: #5e4d75;
+}

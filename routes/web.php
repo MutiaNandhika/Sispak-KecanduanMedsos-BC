@@ -39,11 +39,14 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::view('/user', 'user.beranda');
+Route::view('/diagnosa', 'user.diagnosa');
 Route::view('/pertanyaan', 'user.pertanyaan');
 Route::post('/output-tingkatan', function () {
     return view('user.output-tingkatan'); // buat view sesuai kebutuhanmu
 });
 Route::view('/output-tingkatan', 'user.output-tingkatan')->name('output');
+Route::view('/output-failed', 'user.output-failed');
+Route::view('/profil', 'user.profil');
 
 Route::view('/pakar', 'pakar.dashboard');
 

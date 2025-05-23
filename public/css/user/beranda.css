@@ -1,0 +1,93 @@
+.beranda-container {
+    
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 2rem 2rem 2rem; /* beri padding supaya nggak nempel banget */
+  gap: 2rem;
+  color: #7D6898;
+  width: 100%; /* penuh lebar layar */
+  box-sizing: border-box;
+}
+
+
+.left-side {
+  flex: 2;
+}
+
+.right-side {
+  flex: 1;
+  background-color: #fff;
+  border: 2px solid #ffffff;
+  border-radius: 15px;
+  padding: 1rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* lebih tebal dan gelap */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+h2 {
+  font-weight: 400;
+  margin-bottom: 0.2rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  justify-content: center;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #7D6898;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #2779bd;
+}
+
+
+.levels-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.level-btn {
+  font-size: 1.1rem;
+  background: linear-gradient(to right, #B1E4E3, #EBDEFC, #FED141);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  width: 300px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  color: #555;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  margin-bottom: 1rem;
+}
+
+.level-btn:hover {
+  transform: scale(1.03);
+}
