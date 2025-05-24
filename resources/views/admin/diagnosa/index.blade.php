@@ -32,11 +32,11 @@
                     <td>{{ $diagnosa->deskripsi }}</td>
                     <td class="action-icons">
                         <a href="{{ route('admin.diagnosa.edit', $diagnosa->id) }}" class="edit-icon">✏️</a>
-                        <form class="form-hapus" data-id="{{ $diagnosa->id }}" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" class="delete-icon" style="background: none; border: none; cursor: pointer;">🗑️</button>
-                        </form>
+                            <form class="form-hapus" action="{{ route('admin.diagnosa.destroy', $diagnosa->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="delete-icon" style="background: none; border: none; cursor: pointer;">🗑️</button>
+                            </form>
                     </td>
                 </tr>
                 @endforeach

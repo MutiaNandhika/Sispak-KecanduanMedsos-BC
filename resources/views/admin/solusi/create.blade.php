@@ -13,8 +13,13 @@
     <form action="{{ route('admin.solusi.store') }}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="solusi">Diagnosa</label>
-            <input type="text" name="solusi" id="solusi" required>
+            <label for="diagnosa_id">Diagnosa</label>
+            <select name="diagnosa_id" id="diagnosa_id" required>
+                <option value="">-- Pilih Diagnosa --</option>
+                @foreach ($diagnosas as $diagnosa)
+                    <option value="{{ $diagnosa->id }}">{{ $diagnosa->nama }}</option>
+                @endforeach
+            </select>
         </div>
 
         <div class="form-group">

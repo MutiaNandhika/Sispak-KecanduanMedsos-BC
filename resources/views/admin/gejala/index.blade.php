@@ -30,11 +30,11 @@
                     <td>{{ $gejala->nama }}</td>
                     <td class="action-icons">
                         <a href="{{ route('admin.gejala.edit', $gejala->id) }}" class="edit-icon">✏️</a>
-                        <form class="form-hapus" data-id="{{ $gejala->id }}" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" class="delete-icon" style="background: none; border: none; cursor: pointer;">🗑️</button>
-                        </form>
+                            <form class="form-hapus" action="{{ route('admin.gejala.destroy', $gejala->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="delete-icon" style="background: none; border: none; cursor: pointer;">🗑️</button>
+                            </form>
                     </td>
                 </tr>
                 @endforeach

@@ -28,7 +28,7 @@
                 @foreach ($pertanyaans as $pertanyaan)
                 <tr>
                     <td>{{ $pertanyaan->id }}</td>
-                    <td>{{ $pertanyaan->diagnosa_id }}</td>
+                    <td>{{ $pertanyaan->diagnosa->nama ?? '-' }}</td>
                     <td>{{ $pertanyaan->pertanyaan }}</td>
                     <td class="action-icons">
                         <a href="{{ route('admin.pertanyaan.edit', $pertanyaan->id) }}" class="edit-icon">✏️</a>

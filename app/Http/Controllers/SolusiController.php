@@ -4,47 +4,57 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Solusi;
+use App\Models\Diagnosa;
 
 class SolusiController extends Controller
 {
-    public function index()
+        public function index()
     {
-        $solusis = Solusi::all();
+        $solusis = \App\Models\Solusi::with('diagnosa')->get();
         return view('admin.solusi.index', compact('solusis'));
     }
 
-    public function create()
+
+        public function create()
     {
-        return view('admin.solusi.create');
+        $diagnosas = \App\Models\Diagnosa::all(); // SALAH TEMPAT
+        return view('admin.solusi.create', compact('diagnosas'));
     }
+
 
     public function store(Request $request)
-    {
-        Solusi::create($request->validate([
-            'diagnosa' => 'required|string|max:255',
-            'solusi' => 'required|string',
-        ]));
+{
+    $validated = $request->validate([
+        'diagnosa_id' => 'required|exists:diagnosas,id',
+        'solusi' => 'required|string',
+    ]);
 
-        return redirect()->route('admin.solusi.index')->with('success', 'Solusi berhasil ditambahkan');
-    }
+    Solusi::create($validated);
+
+    return redirect()->route('admin.solusi.index')->with('success', 'Solusi berhasil ditambahkan');
+}
+
 
     public function edit($id)
     {
         $solusi = Solusi::findOrFail($id);
-        return view('admin.solusi.edit', compact('solusi'));
+        $diagnosas = Diagnosa::all(); // Tambahkan ini
+        return view('admin.solusi.edit', compact('solusi', 'diagnosas'));
     }
 
     public function update(Request $request, $id)
     {
-        $solusi = Solusi::findOrFail($id);
-
-        $solusi->update($request->validate([
-            'diagnosa' => 'required|string|max:255',
+        $validated = $request->validate([
+            'diagnosa_id' => 'required|exists:diagnosas,id',
             'solusi' => 'required|string',
-        ]));
+        ]);
+
+        $solusi = Solusi::findOrFail($id);
+        $solusi->update($validated);
 
         return redirect()->route('admin.solusi.index')->with('success', 'Solusi berhasil diperbarui');
     }
+
 
     public function destroy($id)
     {

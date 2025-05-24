@@ -22,32 +22,33 @@ class PertanyaanController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'pertanyaan' => 'required|string|max:255',
             'diagnosa_id' => 'required|exists:diagnosas,id',
         ]);
 
-        Pertanyaan::create($request->all());
+        Pertanyaan::create($validated);
 
         return redirect()->route('admin.pertanyaan.index')->with('success', 'Pertanyaan berhasil ditambahkan.');
     }
 
     public function edit($id)
-    {
-        $pertanyaan = Pertanyaan::findOrFail($id);
-        $diagnosas = Diagnosa::all();
-        return view('admin.pertanyaan.edit', compact('pertanyaan', 'diagnosas'));
-    }
+{
+    $pertanyaan = Pertanyaan::findOrFail($id);
+    $diagnosas = Diagnosa::all();
+    return view('admin.pertanyaan.edit', compact('pertanyaan', 'diagnosas'));
+}
+
 
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $validated = $request->validate([
             'pertanyaan' => 'required|string|max:255',
             'diagnosa_id' => 'required|exists:diagnosas,id',
         ]);
 
         $pertanyaan = Pertanyaan::findOrFail($id);
-        $pertanyaan->update($request->all());
+        $pertanyaan->update($validated);
 
         return redirect()->route('admin.pertanyaan.index')->with('success', 'Pertanyaan berhasil diperbarui.');
     }

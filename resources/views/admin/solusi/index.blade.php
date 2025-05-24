@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Data solusi')
+@section('title', 'Data Solusi')
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/admin/solusi.css') }}">
@@ -8,10 +8,10 @@
 
 @section('content')
 <div class="solusi-container">
-    <h1 class="solusi-title">Data solusi</h1>
+    <h1 class="solusi-title">Data Solusi</h1>
 
     <div class="solusi-actions">
-        <a href="{{ route('admin.solusi.create') }}" class="tambah-btn">Tambah solusi +</a>
+        <a href="{{ route('admin.solusi.create') }}" class="tambah-btn">Tambah Solusi +</a>
     </div>
 
     <div class="table-wrapper">
@@ -28,11 +28,11 @@
                 @foreach ($solusis as $solusi)
                 <tr>
                     <td>{{ $solusi->id }}</td>
-                    <td>{{ $solusi->diagnosa }}</td>
+                    <td>{{ $solusi->diagnosa->nama ?? '-' }}</td>
                     <td>{{ $solusi->solusi }}</td>
                     <td class="action-icons">
                         <a href="{{ route('admin.solusi.edit', $solusi->id) }}" class="edit-icon">✏️</a>
-                        <form class="form-hapus" data-id="{{ $solusi->id }}" style="display: inline;">
+                        <form class="form-hapus" action="{{ route('admin.solusi.destroy', $solusi->id) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
                             <button type="button" class="delete-icon" style="background: none; border: none; cursor: pointer;">🗑️</button>
@@ -47,6 +47,7 @@
 @endsection
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const forms = document.querySelectorAll('.form-hapus');
@@ -71,4 +72,3 @@
     });
 </script>
 @endpush
-
