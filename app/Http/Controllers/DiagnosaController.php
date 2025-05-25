@@ -56,5 +56,14 @@ public function update(Request $request, $id)
     return redirect()->route('admin.diagnosa.index')->with('success', 'Diagnosa berhasil diperbarui.');
 }
 
+//Pakar
+
+public function diagnosaPakar()
+{
+    $diagnosas = Diagnosa::all(); 
+    return view('pakar.diagnosa.index', compact('diagnosas'));
+}
+
+
 }
 

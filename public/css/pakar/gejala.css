@@ -1,0 +1,126 @@
+.gejala-container {
+    margin: 0.1rem auto;       /* tengah horizontal */
+    padding: 1rem 1rem;        /* kasih padding kiri kanan lebih lega */
+    width: 100%;               /* lebar 100% dari parent */
+    max-width: 1600px;         /* maksimal lebar 1200px supaya gak terlalu lebar */
+    box-sizing: border-box;    
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(125, 104, 152, 0.5);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+/* Header table */
+.table-header {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #1F5E5D;
+    text-align: left;
+    letter-spacing: 0.05em;
+}
+
+/* Tabel dengan fixed layout agar kolom tidak melebar sesuai isi */
+.gejala-table {
+    width: 100%;
+    border-collapse: separate;  /* supaya border-radius bisa bekerja */
+    border-spacing: 0 8px;      /* jarak antar baris */
+    font-size: 0.95rem;
+    table-layout: fixed;         /* penting, agar kolom fixed */
+}
+
+/* Header baris */
+.gejala-table thead tr {
+    background-color: #EBDEFC;
+    color: #7D6898;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    border-radius: 10px 10px 0 0;
+}
+
+/* Header kolom dan cell */
+.gejala-table th,
+.gejala-table td {
+    padding: 14px 20px;
+    text-align: left;
+    /* Hapus ini supaya teks bisa wrap */
+    white-space: normal; /* default adalah nowrap, diganti jadi normal */
+    overflow-wrap: break-word; /* supaya kata panjang tetap terbungkus */
+    word-wrap: break-word; /* untuk kompatibilitas */
+}
+
+
+/* Atur lebar tiap kolom sesuai kebutuhan */
+.gejala-table th:nth-child(1),
+.gejala-table td:nth-child(1) {
+    width: 15%;   /* ID */
+}
+
+.gejala-table th:nth-child(2),
+.gejala-table td:nth-child(2) {
+    width: 65%;   /* gejala */
+}
+
+.gejala-table th:nth-child(3),
+.gejala-table td:nth-child() {
+    width: 20%;   /* Aksi */
+}
+
+
+
+/* Style baris data */
+.gejala-table tbody tr {
+    background: #fafafa;
+    box-shadow: 0 2px 8px rgba(125, 104, 152, 0.1);
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect */
+.gejala-table tbody tr:hover {
+    background-color: #f0e7ff;
+    cursor: default;
+}
+
+/* Baris genap dengan warna berbeda */
+.gejala-table tbody tr:nth-child(even) {
+    background-color: #f6f2ff;
+}
+
+/* Style tombol validasi, kalau diperlukan */
+.btn-validate {
+    background-color: #7D6898;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px; /* dari 999px jadi kotak sudut agak membulat */
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(125, 104, 152, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+
+.btn-validate:hover {
+    background-color: #5f4a82;
+}
+
+/* Tombol aksi sukses dan gagal */
+.btn-validate.success {
+    background-color: #4CAF50;
+    margin-right: 8px;
+}
+
+.btn-validate.danger {
+    background-color: #F44336;
+}
+
+.btn-validate.success:hover {
+    background-color: #388E3C;
+}
+
+.btn-validate.danger:hover {
+    background-color: #D32F2F;
+}

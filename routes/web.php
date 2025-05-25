@@ -78,6 +78,8 @@ Route::prefix('admin/pengguna')->name('admin.pengguna.')->group(function () {
     Route::delete('/{id}', [PenggunaController::class, 'destroy'])->name('destroy');
 });
 
+
+
 // User pages
 Route::view('/user', 'user.beranda');
 Route::view('/diagnosa', 'user.diagnosa');
@@ -89,6 +91,19 @@ Route::view('/profil', 'user.profil');
 
 // Pakar page
 Route::view('/pakar', 'pakar.dashboard');
+
+// routes/web.php
+Route::prefix('pakar')->group(function () {
+    Route::view('/', 'pakar.dashboard')->name('pakar.dashboard');
+    Route::view('/diagnosa', 'pakar.diagnosa')->name('diagnosa.index');
+    Route::view('/gejala', 'pakar.gejala')->name('gejala.index');
+    Route::view('/solusi', 'pakar.solusi')->name('solusi.index');
+    Route::view('/pengguna', 'pakar.pengguna')->name('pengguna.index');
+    Route::view('/pertanyaan', 'pakar.pertanyaan')->name('pertanyaan.index');
+    Route::view('/profil', 'pakar.profil')->name('profil.index');
+});
+
+
 
 // Logout
 Route::get('/logout', function () {
