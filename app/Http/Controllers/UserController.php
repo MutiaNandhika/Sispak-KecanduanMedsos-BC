@@ -27,7 +27,7 @@ class UserController extends Controller
             'role' => 'required|in:admin,pakar,user',
         ]);
 
-        User::create([
+        User::create([  
             'nama' => $request->nama,
             'email' => $request->email,
             'password' => bcrypt($request->password),

@@ -22,7 +22,7 @@ class Pertanyaan extends Model
 
     public function gejala()
     {
-        return $this->belongsTo(Gejala::class, 'id_gejala', 'id');
+        return $this->belongsTo(Gejala::class, 'id_gejala', 'id_gejala');
     }
 
     public function gejalaTerdeteksi()
