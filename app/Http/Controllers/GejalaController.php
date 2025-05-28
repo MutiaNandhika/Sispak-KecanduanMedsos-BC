@@ -62,4 +62,26 @@ class GejalaController extends Controller
 
         return redirect()->route('admin.gejala.index')->with('success', 'Gejala berhasil dihapus.');
     }
+
+    public function indexPakar()
+    {
+        $gejalas = Gejala::all();
+        return view('pakar.gejala', compact('gejalas'));
+    }
+
+    public function verify(Request $request, $id_gejala)
+    {
+        $request->validate([
+            'status_verifikasi' => 'required|in:diterima,ditolak',
+            'catatan_pakar' => 'nullable|string',
+        ]);
+
+        $gejala = Gejala::findOrFail($id_gejala);
+        $gejala->update([
+            'status_verifikasi' => $request->status_verifikasi,
+            'catatan_pakar' => $request->catatan_pakar,
+        ]);
+
+        return redirect()->back()->with('success', 'Status gejala berhasil diperbarui.');
+    }    
 }

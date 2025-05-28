@@ -24,27 +24,27 @@
         </a>
     </li>
     <li class="{{ request()->is('pakar/diagnosa*') ? 'active' : '' }}">
-        <a href="{{ route('diagnosa.index') }}">
+        <a href="{{ route('pakar.diagnosa.index') }}">
             <span>📅</span> Diagnosa
         </a>
     </li>
     <li class="{{ request()->is('pakar/gejala*') ? 'active' : '' }}">
-        <a href="{{ route('gejala.index') }}">
+        <a href="{{ route('pakar.gejala.index') }}">
             <span>📝</span> Gejala
         </a>
     </li>
     <li class="{{ request()->is('pakar/solusi*') ? 'active' : '' }}">
-        <a href="{{ route('solusi.index') }}">
+        <a href="{{ route('pakar.solusi.index') }}">
             <span>📢</span> Solusi
         </a>
     </li>
     <li class="{{ request()->is('pakar/pertanyaan*') ? 'active' : '' }}">
-        <a href="{{ route('pertanyaan.index') }}">
+        <a href="{{ route('pakar.pertanyaan.index') }}">
             <span>❓</span> Pertanyaan
         </a>
     </li>
     <li class="{{ request()->is('pakar/pengguna*') ? 'active' : '' }}">
-        <a href="{{ route('pengguna.index') }}">
+        <a href="{{ route('pakar.pengguna.index') }}">
             <span>👤</span> Pengguna
         </a>
     </li>
@@ -63,9 +63,9 @@
         <!-- Header -->
         <header class="topbar">
             <div class="user-info">
-                <a href="{{ route('profil.index') }}" style="text-decoration: none; color: inherit;">
-                    <strong>Naruto Uzumaki</strong><br>
-                    <small>Pakar</small>
+                <a href="{{ route('pakar.profil.index') }}" style="text-decoration: none; color: inherit;">
+                    <strong>{{ Auth::user()->nama }}</strong><br>
+                    <small>{{ Auth::user()->role }}</small>
                 </a>
             </div>
         </header>

@@ -78,8 +78,37 @@ Route::prefix('admin')->middleware(\App\Http\Middleware\RoleMiddleware::class . 
 });
 
 // Pakar Routes
+// Pakar Routes
 Route::prefix('pakar')->middleware(\App\Http\Middleware\RoleMiddleware::class . ':pakar')->group(function () {
     Route::view('/', 'pakar.dashboard')->name('pakar.dashboard');
+    
+    // Diagnosa routes
+    Route::get('/diagnosa', [DiagnosaController::class, 'indexPakar'])->name('pakar.diagnosa.index');
+    Route::put('/diagnosa/{id}/verify', [DiagnosaController::class, 'updatePakar'])->name('pakar.diagnosa.verify');
+    
+    // Gejala routes - add pakar prefix to route name
+    Route::get('/gejala', [GejalaController::class, 'indexPakar'])->name('pakar.gejala.index');
+    Route::put('/gejala/{id_gejala}/verify', [GejalaController::class, 'verify'])->name('pakar.gejala.verify');
+    
+    // Solusi routes - add pakar prefix to route name
+    Route::get('/solusi', function() {
+        return view('pakar.solusi');
+    })->name('pakar.solusi.index');
+    
+    // Pertanyaan routes - add pakar prefix to route name
+    Route::get('/pertanyaan', function() {
+        return view('pakar.pertanyaan');
+    })->name('pakar.pertanyaan.index');
+    
+    // Pengguna routes - add pakar prefix to route name
+    Route::get('/pengguna', function() {
+        return view('pakar.pengguna');
+    })->name('pakar.pengguna.index');
+    
+    // Profil route - add pakar prefix to route name
+    Route::get('/profil', function() {
+        return view('pakar.profil');
+    })->name('pakar.profil.index');
 });
 
 // User Routes

@@ -79,7 +79,7 @@ class DiagnosaController extends Controller
     public function indexPakar()
     {
         $diagnosas = Diagnosa::all();
-        return view('pakar.diagnosa.index', compact('diagnosas'));
+        return view('pakar.diagnosa', compact('diagnosas'));
     }
 
     // Tambahkan method destroy untuk hapus diagnosa
