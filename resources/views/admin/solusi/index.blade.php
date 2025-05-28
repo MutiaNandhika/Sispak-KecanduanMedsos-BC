@@ -21,18 +21,22 @@
                     <th>ID</th>
                     <th>Diagnosa</th>
                     <th>Solusi</th>
+                    <th>Status Verifikasi</th>
+                    <th>Catatan Pakar</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($solusis as $solusi)
                 <tr>
-                    <td>{{ $solusi->id }}</td>
-                    <td>{{ $solusi->diagnosa->nama ?? '-' }}</td>
-                    <td>{{ $solusi->solusi }}</td>
+                    <td>{{ $solusi->id_solusi }}</td>
+                    <td>{{ $solusi->diagnosa->nama_diagnosa ?? '-' }}</td>
+                    <td>{{ $solusi->solusi_diagnosa }}</td>
+                    <td>{{ ucfirst($solusi->status_verifikasi) }}</td>
+                    <td>{{ $solusi->catatan_pakar ?? '-' }}</td>
                     <td class="action-icons">
-                        <a href="{{ route('admin.solusi.edit', $solusi->id) }}" class="edit-icon">✏️</a>
-                        <form class="form-hapus" action="{{ route('admin.solusi.destroy', $solusi->id) }}" method="POST" style="display: inline;">
+                        <a href="{{ route('admin.solusi.edit', $solusi->id_solusi) }}" class="edit-icon">✏️</a>
+                        <form class="form-hapus" action="{{ route('admin.solusi.destroy', $solusi->id_solusi) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
                             <button type="button" class="delete-icon" style="background: none; border: none; cursor: pointer;">🗑️</button>

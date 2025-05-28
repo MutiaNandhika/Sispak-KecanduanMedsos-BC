@@ -4,27 +4,46 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pertanyaan;
-use App\Models\Diagnosa;
+use App\Models\Gejala;
 
 class PertanyaanController extends Controller
 {
     public function index()
     {
-        $pertanyaans = Pertanyaan::with('diagnosa')->get();
+        $pertanyaans = Pertanyaan::with('gejala')->get();
         return view('admin.pertanyaan.index', compact('pertanyaans'));
+    }
+
+    public function jawab(Request $request, $id_pertanyaan)
+    {
+        $request->validate([
+            'jawaban' => 'required|in:ya,tidak',
+        ]);
+
+        if ($request->jawaban === 'ya') {
+            $pertanyaan = Pertanyaan::findOrFail($id_pertanyaan);
+
+            HasilGejala::firstOrCreate([
+                'id_user' => auth()->id(),
+                'id_gejala' => $pertanyaan->id_gejala,
+            ]);
+        }
+        return redirect()->route('pertanyaan.index')->with('success', 'Jawaban disimpan.');
     }
 
     public function create()
     {
-        $diagnosas = Diagnosa::all();
-        return view('admin.pertanyaan.create', compact('diagnosas'));
+        $gejalas = Gejala::all();
+        return view('admin.pertanyaan.create', compact('gejalas'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'pertanyaan' => 'required|string|max:255',
-            'diagnosa_id' => 'required|exists:diagnosas,id',
+            'id_gejala' => 'required|exists:gejala,id_gejala',
+            'pertanyaan_gejala' => 'required|string|max:255',
+            'status_verifikasi' => 'in:menunggu,diterima,ditolak',
+            'catatan_pakar' => 'nullable|string',
         ]);
 
         Pertanyaan::create($validated);
@@ -33,18 +52,19 @@ class PertanyaanController extends Controller
     }
 
     public function edit($id)
-{
-    $pertanyaan = Pertanyaan::findOrFail($id);
-    $diagnosas = Diagnosa::all();
-    return view('admin.pertanyaan.edit', compact('pertanyaan', 'diagnosas'));
-}
-
+    {
+        $pertanyaan = Pertanyaan::findOrFail($id);
+        $gejalas = Gejala::all();
+        return view('admin.pertanyaan.edit', compact('pertanyaan', 'gejalas'));
+    }
 
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'pertanyaan' => 'required|string|max:255',
-            'diagnosa_id' => 'required|exists:diagnosas,id',
+            'id_gejala' => 'required|exists:gejala,id_gejala',
+            'pertanyaan_gejala' => 'required|string|max:255',
+            'status_verifikasi' => 'in:menunggu,diterima,ditolak',
+            'catatan_pakar' => 'nullable|string',
         ]);
 
         $pertanyaan = Pertanyaan::findOrFail($id);

@@ -5,6 +5,8 @@
 @push('styles')
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endpush
 
 @section('content')
@@ -34,4 +36,17 @@
         Belum mempunyai akun? Silahkan <a href="{{ route('register') }}">daftar disini</a>
     </p>
 </div>
+
+<!-- SweetAlert2 for Flash Message -->
+@if (session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Registrasi Berhasil!',
+        text: "{{ session('success') }}",
+        confirmButtonText: 'OK'
+    });
+</script>
+@endif
+
 @endsection

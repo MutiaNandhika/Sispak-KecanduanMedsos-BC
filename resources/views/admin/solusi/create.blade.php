@@ -13,18 +13,18 @@
     <form action="{{ route('admin.solusi.store') }}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="diagnosa_id">Diagnosa</label>
-            <select name="diagnosa_id" id="diagnosa_id" required>
+            <label for="id_diagnosa">Diagnosa</label>
+            <select name="id_diagnosa" id="id_diagnosa" required>
                 <option value="">-- Pilih Diagnosa --</option>
                 @foreach ($diagnosas as $diagnosa)
-                    <option value="{{ $diagnosa->id }}">{{ $diagnosa->nama }}</option>
+                    <option value="{{ $diagnosa->id_diagnosa }}">{{ $diagnosa->nama_diagnosa }}</option>
                 @endforeach
             </select>
         </div>
 
         <div class="form-group">
-            <label for="solusi">Solusi</label>
-            <textarea name="solusi" id="solusi" rows="4" required></textarea>
+            <label for="solusi_diagnosa">Solusi</label>
+            <textarea name="solusi_diagnosa" id="solusi_diagnosa" rows="4" required></textarea>
         </div>
 
         <div class="form-buttons">

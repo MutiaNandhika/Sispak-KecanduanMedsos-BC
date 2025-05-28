@@ -6,23 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up()
-{
-    Schema::create('gejalas', function (Blueprint $table) {
-        $table->id();
-        $table->string('nama');
-        $table->timestamps();
-    });
-}
+    public function up(): void
+    {
+        Schema::create('gejala', function (Blueprint $table) {
+            $table->id('id_gejala');
+            $table->string('nama_gejala');
+            $table->enum('status_verifikasi', ['menunggu', 'diterima', 'ditolak'])->default('menunggu');
+            $table->timestamps();
+        });
+    }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('gejalas');
+        Schema::dropIfExists('gejala');
     }
 };

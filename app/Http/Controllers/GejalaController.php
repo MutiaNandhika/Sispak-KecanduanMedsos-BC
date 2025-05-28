@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gejala;
 use Illuminate\Http\Request;
+use App\Models\Gejala;
 
 class GejalaController extends Controller
 {
@@ -18,44 +18,71 @@ class GejalaController extends Controller
         return view('admin.gejala.create');
     }
 
-    public function store(Request $request)
+        public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'nama_gejala' => 'required|string|max:255',
         ]);
 
         Gejala::create([
-            'nama' => $request->nama,
+            'nama_gejala' => $request->nama_gejala,
+            'status_verifikasi' => 'menunggu',
         ]);
 
-        return redirect()->route('admin.gejala.index')->with('success', 'Gejala berhasil ditambahkan.');
+        return redirect()->route('admin.gejala.index')->with('success', 'Gejala berhasil ditambahkan dan menunggu verifikasi.');
     }
 
-    public function edit($id)
+
+
+    public function edit($id_gejala)
     {
-        $gejala = Gejala::findOrFail($id);
+        $gejala = Gejala::findOrFail($id_gejala);
         return view('admin.gejala.edit', compact('gejala'));
     }
 
-    public function update(Request $request, $id)
+        public function update(Request $request, $id_gejala)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'nama_gejala' => 'required|string|max:255',
         ]);
 
-        $gejala = Gejala::findOrFail($id);
+        $gejala = Gejala::findOrFail($id_gejala);
         $gejala->update([
-            'nama' => $request->nama,
+            'nama_gejala' => $request->nama_gejala,
+            // status_verifikasi tidak diubah oleh admin
         ]);
 
         return redirect()->route('admin.gejala.index')->with('success', 'Gejala berhasil diperbarui.');
     }
 
-    public function destroy($id)
+
+    public function destroy($id_gejala)
     {
-        $gejala = Gejala::findOrFail($id);
+        $gejala = Gejala::findOrFail($id_gejala);
         $gejala->delete();
 
         return redirect()->route('admin.gejala.index')->with('success', 'Gejala berhasil dihapus.');
     }
+
+    public function indexPakar()
+    {
+        $gejalas = Gejala::all();
+        return view('pakar.gejala', compact('gejalas'));
+    }
+
+    public function verify(Request $request, $id_gejala)
+    {
+        $request->validate([
+            'status_verifikasi' => 'required|in:diterima,ditolak',
+            'catatan_pakar' => 'nullable|string',
+        ]);
+
+        $gejala = Gejala::findOrFail($id_gejala);
+        $gejala->update([
+            'status_verifikasi' => $request->status_verifikasi,
+            'catatan_pakar' => $request->catatan_pakar,
+        ]);
+
+        return redirect()->back()->with('success', 'Status gejala berhasil diperbarui.');
+    }    
 }

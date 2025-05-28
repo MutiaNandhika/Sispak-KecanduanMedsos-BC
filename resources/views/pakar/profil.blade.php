@@ -19,10 +19,9 @@
         </div>
 
         <div class="profil-info">
-            <h3>Nama Contoh</h3>
-            <p>contoh@email.com</p>
-            <p>Perempuan</p>
-            <p>22</p>
+            <h3>{{ Auth::user()->nama }}</h3>
+            <p>{{ Auth::user()->email }}</p>
+            <p>{{ Auth::user()->role }}</p>
         </div>
     </div>
 </div>

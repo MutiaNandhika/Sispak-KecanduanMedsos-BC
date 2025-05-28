@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>@yield('title')</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ asset('images/icon-logo.png') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
@@ -43,8 +44,8 @@
             <span>❓</span> Pertanyaan
         </a>
     </li>
-    <li class="{{ request()->is('admin/pengguna*') ? 'active' : '' }}">
-        <a href="{{ route('admin.pengguna.index') }}">
+    <li class="{{ request()->is('admin/user*') ? 'active' : '' }}">
+        <a href="{{ route('admin.user.index') }}">
             <span>👤</span> Pengguna
         </a>
     </li>
