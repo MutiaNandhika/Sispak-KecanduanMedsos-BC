@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('aturan_gejala', function (Blueprint $table) {
             $table->id('id_aturan');
-            $table->foreignId('id_gejala')->constrained('gejala')->onDelete('cascade');
-            $table->foreignId('id_diagnosa')->constrained('diagnosa')->onDelete('cascade');
+            $table->foreignId('id_gejala')->constrained('gejala', 'id_gejala')->onDelete('cascade');
+            $table->foreignId('id_diagnosa')->constrained('diagnosa', 'id_diagnosa')->onDelete('cascade');
             $table->timestamps();
         });
     }

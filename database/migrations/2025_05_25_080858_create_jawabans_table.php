@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('jawaban', function (Blueprint $table) {
             $table->id('id_jawaban');
-            $table->foreignId('id_user')->constrained('users')->onDelete('cascade');
-            $table->foreignId('id_pertanyaan')->constrained('pertanyaan')->onDelete('cascade');
+            $table->foreignId('id_user')->constrained('users', 'id_user')->onDelete('cascade');
+            $table->foreignId('id_pertanyaan')->constrained('pertanyaan', 'id_pertanyaan')->onDelete('cascade');
             $table->enum('jawaban', ['ya', 'tidak']);
             $table->timestamps();
         });
