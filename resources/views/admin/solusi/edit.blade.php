@@ -19,8 +19,8 @@
             <select name="id_diagnosa" id="id_diagnosa" required>
                 <option value="">-- Pilih Diagnosa --</option>
                 @foreach ($diagnosas as $diagnosa)
-                    <option value="{{ $diagnosa->id }}" {{ $diagnosa->id == $solusi->id_diagnosa ? 'selected' : '' }}>
-                        {{ $diagnosa->nama }}
+                    <option value="{{ $diagnosa->id_diagnosa }}" {{ $diagnosa->id_diagnosa == $solusi->id_diagnosa ? 'selected' : '' }}>
+                        {{ $diagnosa->nama_diagnosa }}
                     </option>
                 @endforeach
             </select>

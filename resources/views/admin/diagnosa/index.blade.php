@@ -21,6 +21,7 @@
                     <th>ID</th>
                     <th>Diagnosa</th>
                     <th>Deskripsi</th>
+                    <th>Status Verifikasi</th> {{-- Kolom baru --}}
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -30,6 +31,11 @@
                     <td>{{ $diagnosa->id_diagnosa }}</td>
                     <td>{{ $diagnosa->nama_diagnosa }}</td>
                     <td>{{ $diagnosa->deskripsi }}</td>
+                    <td>
+                        <span class="badge status-{{ $diagnosa->status_verifikasi }}">
+                            {{ ucfirst($diagnosa->status_verifikasi) }}
+                        </span>
+                    </td>
                     <td class="action-icons">
                         <a href="{{ route('admin.diagnosa.edit', $diagnosa->id_diagnosa) }}" class="edit-icon">✏️</a>
                         <form class="form-hapus" action="{{ route('admin.diagnosa.destroy', $diagnosa->id_diagnosa) }}" method="POST" style="display: inline;">

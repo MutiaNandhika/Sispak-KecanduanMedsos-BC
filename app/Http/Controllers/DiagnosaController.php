@@ -29,7 +29,7 @@ class DiagnosaController extends Controller
         Diagnosa::create([
             'nama_diagnosa' => $request->nama_diagnosa,
             'deskripsi' => $request->deskripsi,
-            'status_verifikasi' => 'pending',  // otomatis pending saat buat baru
+            'status_verifikasi' => 'menunggu',  // otomatis pending saat buat baru
             'catatan_pakar' => null,
         ]);
 
