@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gejala;
 use Illuminate\Http\Request;
+use App\Models\Gejala;
 
 class GejalaController extends Controller
 {
@@ -21,39 +21,43 @@ class GejalaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'nama_gejala' => 'required|string|max:255',
+            'status_verifikasi' => 'required|in:menunggu,diterima,ditolak',
         ]);
 
         Gejala::create([
-            'nama' => $request->nama,
+            'nama_gejala' => $request->nama_gejala,
+            'status_verifikasi' => $request->status_verifikasi,
         ]);
 
         return redirect()->route('admin.gejala.index')->with('success', 'Gejala berhasil ditambahkan.');
     }
 
-    public function edit($id)
+    public function edit($id_gejala)
     {
-        $gejala = Gejala::findOrFail($id);
+        $gejala = Gejala::findOrFail($id_gejala);
         return view('admin.gejala.edit', compact('gejala'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_gejala)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'nama_gejala' => 'required|string|max:255',
+            'status_verifikasi' => 'required|in:menunggu,diterima,ditolak',
         ]);
 
-        $gejala = Gejala::findOrFail($id);
+        $gejala = Gejala::findOrFail($id_gejala);
         $gejala->update([
-            'nama' => $request->nama,
+            'nama_gejala' => $request->nama_gejala,
+            'status_verifikasi' => $request->status_verifikasi,
         ]);
 
         return redirect()->route('admin.gejala.index')->with('success', 'Gejala berhasil diperbarui.');
     }
 
-    public function destroy($id)
+    public function destroy($id_gejala)
     {
-        $gejala = Gejala::findOrFail($id);
+        $gejala = Gejala::findOrFail($id_gejala);
         $gejala->delete();
 
         return redirect()->route('admin.gejala.index')->with('success', 'Gejala berhasil dihapus.');

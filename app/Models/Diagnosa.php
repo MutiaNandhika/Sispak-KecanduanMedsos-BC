@@ -9,10 +9,19 @@ class Diagnosa extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama', 'deskripsi'];
+    protected $table = 'diagnosa'; 
 
-            public function solusis()
-        {
-            return $this->hasMany(Solusi::class);
-        }
+    protected $primaryKey = 'id_diagnosa'; 
+
+    protected $fillable = [
+        'nama_diagnosa',
+        'deskripsi',
+        'status_verifikasi',
+        'catatan_pakar',
+    ];
+
+    public function solusis()
+    {
+        return $this->hasMany(Solusi::class, 'id_diagnosa', 'id_diagnosa');
+    }
 }

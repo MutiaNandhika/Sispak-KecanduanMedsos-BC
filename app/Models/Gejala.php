@@ -9,5 +9,12 @@ class Gejala extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama']; // ← Tambahkan kolom yang ingin disimpan
+    protected $table = 'gejala';
+    protected $primaryKey = 'id_gejala';
+    protected $fillable = ['nama_gejala', 'status_verifikasi'];
+    
+    public function pertanyaans()
+    {
+        return $this->hasMany(Pertanyaan::class, 'id_gejala', 'id_gejala');
+    }
 }

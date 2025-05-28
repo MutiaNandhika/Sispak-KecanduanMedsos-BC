@@ -9,13 +9,25 @@ class Pertanyaan extends Model
 {
     use HasFactory;
 
+    protected $table = 'pertanyaan'; 
+    protected $primaryKey = 'id_pertanyaan'; 
+    public $timestamps = true; 
+
     protected $fillable = [
-        'pertanyaan',
-        'diagnosa_id',
+        'id_gejala',
+        'pertanyaan_gejala',
+        'status_verifikasi',
+        'catatan_pakar',
     ];
 
-    public function diagnosa()
+    public function gejala()
     {
-        return $this->belongsTo(Diagnosa::class);
+        return $this->belongsTo(Gejala::class, 'id_gejala', 'id');
     }
+
+    public function gejalaTerdeteksi()
+    {
+        return $this->hasMany(HasilGejala::class, 'id_gejala', 'id_gejala');
+    }
+
 }
