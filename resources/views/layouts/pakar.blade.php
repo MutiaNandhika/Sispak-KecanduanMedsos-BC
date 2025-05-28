@@ -70,20 +70,22 @@
             </div>
         </header>
 
-
         <!-- Konten Utama -->
         <main class="dashboard-content">
             @yield('content')
         </main>
 
-                <!-- Footer Khusus Admin -->
+        <!-- Footer Khusus Admin -->
         @include('partials.footer-pakar')
     </div>
 </div>
 
 <!-- Script SweetAlert & lainnya -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 @stack('scripts')
 </body>
 </html>
 
+z

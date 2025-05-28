@@ -1,5 +1,3 @@
-
-
 * {
     box-sizing: border-box;
 }
@@ -32,20 +30,21 @@ html, body {
     position: fixed;
     left: 0;
     top: 0;
+    transition: width 0.3s ease, padding 0.3s ease;
 }
 
 .sidebar .logo {
-    margin-bottom: 0; /* atau bisa dihapus jadi 0 */
+    margin-bottom: 0;
     text-align: center;
 }
 
 .sidebar .logo img {
-    height: 50px;  /* sebelumnya 60px */
+    height: 50px;
     width: auto;
     max-width: 100%;
     object-fit: contain;
+    transition: height 0.3s ease;
 }
-
 
 .sidebar ul {
     list-style: none;
@@ -66,6 +65,7 @@ html, body {
     display: flex;
     align-items: center;
     gap: 10px;
+    transition: justify-content 0.3s ease;
 }
 
 .sidebar ul li a:hover,
@@ -84,6 +84,7 @@ html, body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    transition: margin-left 0.3s ease, width 0.3s ease;
 }
 
 /* TOPBAR */
@@ -92,25 +93,81 @@ html, body {
     background-color: #fff;
     border-bottom: 1px solid #ddd;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between; /* supaya menu-toggle kiri, user-info kanan */
     align-items: center;
-    padding: 1rem 2rem; /* Tambah padding kanan agar tidak menempel */
-    margin-top: 0.5rem; /* Jika ingin agak turun dari atas */
+    padding: 1rem 2rem;
+    margin-top: 0.5rem;
+    box-sizing: border-box;
 }
 
 .user-info {
     text-align: right;
     font-size: 0.9rem;
     line-height: 1.4;
-    padding-left: 1rem;  /* Jarak dari sisi kiri kontainer topbar */
+    padding-left: 1rem;
     padding-right: 0.25rem;
     padding-bottom: 0.5rem;
 }
 
+/* Content utama */
 .dashboard-content {
-    padding-top: 0rem;         /* Supaya tidak ada jarak di atas */
+    padding-top: 0rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     flex: 1;
 }
 
+/* Toggle menu hamburger */
+.menu-toggle {
+    width: 30px;
+    height: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    margin-right: 0;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 3px;
+    background-color: #553a79;
+    border-radius: 2px;
+    transition: background-color 0.3s ease;
+}
+
+.menu-toggle:hover span {
+    background-color: #77d6d2;
+}
+
+/* ==== SIDEBAR COLLAPSED === */
+.pakar-container.sidebar-collapsed .sidebar {
+    width: 60px;
+    min-width: 60px;
+    padding: 2rem 0.5rem;
+    align-items: center;
+}
+
+.pakar-container.sidebar-collapsed .sidebar .logo img {
+    height: 40px;
+}
+
+.pakar-container.sidebar-collapsed .sidebar ul li a {
+    justify-content: center; /* hanya icon di tengah */
+    gap: 0;
+}
+
+.pakar-container.sidebar-collapsed .sidebar ul li a span:not(:first-child) {
+    display: none; /* sembunyikan teks, hanya icon yang tampil */
+}
+
+/* main wrapper melebar saat sidebar collapse */
+.pakar-container.sidebar-collapsed .main-wrapper {
+    margin-left: 60px;
+    width: calc(100% - 60px);
+}
+
+/* footer ikut melebar (contoh jika footer pakai margin kiri) */
+.pakar-container.sidebar-collapsed footer {
+    margin-left: 60px;
+}
