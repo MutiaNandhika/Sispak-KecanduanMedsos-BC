@@ -33,11 +33,14 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ ucfirst($user->role) }}</td>
                     <td class="action-icons">
-                        <a href="{{ route('admin.user.edit', $user->id_user) }}" title="Ubah">✏️</a>
-                        <form class="form-hapus" action="{{ route('admin.user.destroy', $user->id_user) }}" method="POST" style="display:inline">
+                        <a href="{{ route('admin.user.edit', $user->id_user) }}" class="edit-icon" title="Ubah">✏️</a>
+                        <form action="{{ route('admin.user.destroy', $user->id_user) }}"
+                              method="POST"
+                              class="form-hapus"
+                              style="display:inline">
                             @csrf
                             @method('DELETE')
-                            <button type="button" title="Hapus">🗑️</button>
+                            <button type="button" class="delete-icon" title="Hapus">🗑️</button>
                         </form>
                     </td>
                 </tr>
@@ -52,24 +55,24 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.form-hapus button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      Swal.fire({
-        title: 'Hapus Pengguna?',
-        text: 'Data pengguna akan dihapus permanen',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#e53935',
-        cancelButtonColor: '#aaa',
-        confirmButtonText: 'Ya, hapus',
-        cancelButtonText: 'Batal'
-      }).then(res => {
-        if (res.isConfirmed) {
-          btn.closest('form').submit();
-        }
-      });
+    document.querySelectorAll('.form-hapus button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            Swal.fire({
+                title: 'Hapus Pengguna?',
+                text: 'Data pengguna akan dihapus permanen.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#6C5ECF',
+                cancelButtonColor: '#AAA',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then(result => {
+                if (result.isConfirmed) {
+                    btn.closest('form').submit();
+                }
+            });
+        });
     });
-  });
 });
 </script>
 @endpush
