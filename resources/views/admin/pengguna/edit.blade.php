@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Edit Pengguna')
+@section('title', 'Edit User')
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/admin/create.css') }}">
@@ -8,36 +8,35 @@
 
 @section('content')
 <div class="form-container">
+    <h2 class="form-title">Edit User</h2>
 
-    <h2 class="form-title">Edit Pengguna</h2>
-
-    <form action="{{ route('admin.pengguna.update', $pengguna->id) }}" method="POST">
+    <form action="{{ route('admin.user.update', $user->id_user) }}" method="POST">
         @csrf
         @method('PUT')
 
         <div class="form-group">
-            <label for="nama">Nama Pengguna</label>
-            <input type="text" name="nama" id="nama" value="{{ $pengguna->nama }}" required>
+            <label for="nama">Nama</label>
+            <input type="text" name="nama" id="nama" value="{{ $user->nama }}" required>
         </div>
 
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" name="email" id="email" value="{{ $pengguna->email }}" required>
+            <input type="email" name="email" id="email" value="{{ $user->email }}" required>
         </div>
 
         <div class="form-group">
             <label for="role">Role</label>
             <select name="role" id="role" required>
-                <option value="user" {{ $pengguna->role == 'user' ? 'selected' : '' }}>User</option>
-                <option value="pakar" {{ $pengguna->role == 'pakar' ? 'selected' : '' }}>Pakar</option>
+                <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                <option value="pakar" {{ $user->role == 'pakar' ? 'selected' : '' }}>Pakar</option>
+                <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
             </select>
         </div>
 
         <div class="form-buttons">
             <button type="submit" class="btn-simpan">Update</button>
-            <a href="{{ route('admin.pengguna.index') }}" class="btn-batal">Batal</a>
+            <a href="{{ route('admin.user.index') }}" class="btn-batal">Batal</a>
         </div>
     </form>
-
 </div>
 @endsection

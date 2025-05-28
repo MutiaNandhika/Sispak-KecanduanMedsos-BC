@@ -89,3 +89,4 @@ class DiagnosaController extends Controller
         return redirect()->route('admin.diagnosa.index')->with('success', 'Diagnosa berhasil dihapus');
     }
 }
+

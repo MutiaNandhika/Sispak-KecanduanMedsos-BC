@@ -1,40 +1,40 @@
 @extends('layouts.admin')
 
-@section('title', 'Data Pengguna')
+@section('title', 'Data User')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/admin/pengguna.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin/user.css') }}">
 @endpush
 
 @section('content')
-<div class="pengguna-container">
-    <h1 class="pengguna-title">Data Pengguna</h1>
+<div class="user-container">
+    <h1 class="user-title">Data User</h1>
 
-    <div class="pengguna-actions">
-        <a href="{{ route('admin.pengguna.create') }}" class="tambah-btn">Tambah Pengguna +</a>
+    <div class="user-actions">
+        <a href="{{ route('admin.user.create') }}" class="tambah-btn">Tambah User +</a>
     </div>
 
     <div class="table-wrapper">
-        <table class="pengguna-table">
+        <table class="user-table">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nama Pengguna</th>
+                    <th>Nama</th>
                     <th>Email</th>
                     <th>Role</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($penggunas as $pengguna)
+                @foreach ($users as $user)
                 <tr>
-                    <td>{{ $pengguna->id }}</td>
-                    <td>{{ $pengguna->nama }}</td>
-                    <td>{{ $pengguna->email }}</td>
-                    <td>{{ ucfirst($pengguna->role) }}</td>
+                    <td>{{ $user->id_user }}</td>
+                    <td>{{ $user->nama }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>{{ ucfirst($user->role) }}</td>
                     <td class="action-icons">
-                        <a href="{{ route('admin.pengguna.edit', $pengguna->id) }}" class="edit-icon">✏️</a>
-                        <form class="form-hapus" action="{{ route('admin.pengguna.destroy', $pengguna->id) }}" method="POST" style="display: inline;">
+                        <a href="{{ route('admin.user.edit', $user->id_user) }}" class="edit-icon">✏️</a>
+                        <form class="form-hapus" action="{{ route('admin.user.destroy', $user->id_user) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
                             <button type="button" class="delete-icon" style="background: none; border: none; cursor: pointer;">🗑️</button>

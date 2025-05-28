@@ -27,16 +27,16 @@
             <tbody>
                 @foreach ($diagnosas as $diagnosa)
                 <tr>
-                    <td>{{ $diagnosa->id }}</td>
-                    <td>{{ $diagnosa->nama }}</td>
+                    <td>{{ $diagnosa->id_diagnosa }}</td>
+                    <td>{{ $diagnosa->nama_diagnosa }}</td>
                     <td>{{ $diagnosa->deskripsi }}</td>
                     <td class="action-icons">
-                        <a href="{{ route('admin.diagnosa.edit', $diagnosa->id) }}" class="edit-icon">✏️</a>
-                            <form class="form-hapus" action="{{ route('admin.diagnosa.destroy', $diagnosa->id) }}" method="POST" style="display: inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="delete-icon" style="background: none; border: none; cursor: pointer;">🗑️</button>
-                            </form>
+                        <a href="{{ route('admin.diagnosa.edit', $diagnosa->id_diagnosa) }}" class="edit-icon">✏️</a>
+                        <form class="form-hapus" action="{{ route('admin.diagnosa.destroy', $diagnosa->id_diagnosa) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="delete-icon" style="background: none; border: none; cursor: pointer;">🗑️</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
@@ -71,4 +71,3 @@
     });
 </script>
 @endpush
-

@@ -13,9 +13,18 @@
     <form action="{{ route('admin.gejala.store') }}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="nama">Nama Gejala</label>
-            <input type="text" name="nama" id="nama" required>
+            <label for="nama_gejala">Nama Gejala</label>
+            <input type="text" name="nama_gejala" id="nama_gejala" required>
         </div>
+
+        <!-- <div class="form-group">
+            <label for="status_verifikasi">Status Verifikasi</label>
+            <select name="status_verifikasi" id="status_verifikasi" required>
+                <option value="menunggu">Menunggu</option>
+                <option value="diterima">Diterima</option>
+                <option value="ditolak">Ditolak</option>
+            </select>
+        </div> -->
 
         <div class="form-buttons">
             <button type="submit" class="btn-simpan">Simpan</button>

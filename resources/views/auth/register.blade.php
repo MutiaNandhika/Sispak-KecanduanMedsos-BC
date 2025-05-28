@@ -19,7 +19,7 @@
         @csrf
         <div class="input-group">
             <span class="icon">👤</span>
-            <input type="text" name="name" placeholder="Nama Pengguna" value="{{ old('name') }}" required>
+            <input type="text" name="nama" placeholder="Nama Pengguna" value="{{ old('nama') }}" required>
         </div>
 
         <div class="input-group">
@@ -31,6 +31,13 @@
             <span class="icon">🔑</span>
             <input type="password" name="password" placeholder="Kata sandi" required>
         </div>
+
+        <div class="input-group">
+            <span class="icon">🔑</span>
+            <input type="password" name="password_confirmation" placeholder="Konfirmasi Kata sandi" required>
+        </div>
+
+        <input type="hidden" name="role" value="user">
 
         <button type="submit">Register</button>
     </form>

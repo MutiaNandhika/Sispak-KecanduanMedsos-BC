@@ -10,7 +10,7 @@ return new class extends Migration
         {
             Schema::create('pertanyaan', function (Blueprint $table) {
                 $table->id('id_pertanyaan');
-                $table->foreignId('id_gejala')->constrained('gejalas')->onDelete('cascade');
+                $table->foreignId('id_gejala')->constrained('gejala', 'id_gejala')->onDelete('cascade');
                 $table->string('pertanyaan_gejala');
                 $table->enum('status_verifikasi', ['menunggu', 'diterima', 'ditolak'])->default('menunggu');
                 $table->text('catatan_pakar')->nullable();

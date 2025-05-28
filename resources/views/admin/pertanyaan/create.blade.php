@@ -14,18 +14,18 @@
         @csrf
 
         <div class="form-group">
-            <label for="diagnosa_id">Diagnosa</label>
-            <select name="diagnosa_id" id="diagnosa_id" required>
-                <option value="">-- Pilih Diagnosa --</option>
-                @foreach ($diagnosas as $diagnosa)
-                    <option value="{{ $diagnosa->id }}">{{ $diagnosa->nama }}</option>
+            <label for="id_gejala">Gejala</label>
+            <select name="id_gejala" id="id_gejala" required>
+                <option value="">-- Pilih Gejala --</option>
+                @foreach ($gejalas as $gejala)
+                    <option value="{{ $gejala->id_gejala }}">{{ $gejala->nama_gejala }}</option>
                 @endforeach
             </select>
         </div>
 
         <div class="form-group">
-            <label for="pertanyaan">Pertanyaan</label>
-            <textarea name="pertanyaan" id="pertanyaan" rows="4" required></textarea>
+            <label for="pertanyaan_gejala">Pertanyaan</label>
+            <textarea name="pertanyaan_gejala" id="pertanyaan_gejala" rows="4" required></textarea>
         </div>
 
         <div class="form-buttons">
