@@ -49,13 +49,24 @@
             <span>👤</span> Pengguna
         </a>
     </li>
+    <li class="{{ request()->is('admin/hasil-diagnosa*') ? 'active' : '' }}">
+        <a href="{{ route('admin.hasil.index') }}">
+            <span>📈</span> Hasil Diagnosa
+        </a>
+    </li>
+    <li class="{{ request()->is('admin/hasil-gejala*') ? 'active' : '' }}">
+    <a href="{{ route('admin.hasilgejala.index') }}">
+        <span>📊</span> Hasil Gejala
+    </a>
+</li>
+
     <li class="logout">
         <a href="/login">
-    <span>⬅️</span> Keluar
-</a>
-
+            <span>⬅️</span> Keluar
+        </a>
     </li>
 </ul>
+
 
     </aside>
 

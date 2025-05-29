@@ -10,7 +10,8 @@ use App\Http\Controllers\GejalaController;
 use App\Http\Controllers\SolusiController;
 use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\HasilDiagnosaController;
+use App\Http\Controllers\HasilGejalaController;
 
 // Welcome Page
 Route::get('/', function () {
@@ -76,9 +77,18 @@ Route::prefix('admin')->middleware(\App\Http\Middleware\RoleMiddleware::class . 
         Route::put('/{id_user}', [UserController::class, 'update'])->name('update');
         Route::delete('/{id_user}', [UserController::class, 'destroy'])->name('destroy');
     });
+
+    Route::prefix('hasil-diagnosa')->name('admin.hasil.')->group(function () {
+        Route::get('/', [HasilDiagnosaController::class, 'index'])->name('index');
+        Route::delete('/{id}', [HasilDiagnosaController::class, 'destroy'])->name('destroy');
+    });
+    Route::prefix('hasil-gejala')->name('admin.hasilgejala.')->group(function () {
+        Route::get('/', [HasilGejalaController::class, 'index'])->name('index');
+        Route::delete('/{id}', [HasilGejalaController::class, 'destroy'])->name('destroy');
+    });
+    
 });
 
-// Pakar Routes
 // Pakar Routes
 Route::prefix('pakar')->middleware(\App\Http\Middleware\RoleMiddleware::class . ':pakar')->group(function () {
     Route::view('/', 'pakar.dashboard')->name('pakar.dashboard');
