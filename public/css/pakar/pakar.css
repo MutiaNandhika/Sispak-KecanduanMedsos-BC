@@ -2,6 +2,12 @@
     box-sizing: border-box;
 }
 
+
+:root {
+    --purple-light: #daccece8;
+    --divider-color: #ddd;
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -19,32 +25,76 @@ html, body {
 /* SIDEBAR */
 .sidebar {
     width: 250px;
-    min-width: 250px;
-    background-color: #ffffff;
-    border-right: 1px solid #e0e0e0;
-    padding: 2rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     height: 100vh;
+    color: #fff;
     position: fixed;
     left: 0;
     top: 0;
     transition: width 0.3s ease, padding 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #e0e0e0;
+
 }
 
+.sidebar .nav-links {
+  line-height: 1.2 !important; /* Atur agar lebih rapat */
+  padding-top: 2px;
+  padding-bottom: 2px;
+  flex: 1;
+  padding: 1rem 0;
+}
+
+
+
+.sidebar .nav-links li {
+    padding: 6px ;
+}
+
+.sidebar .nav-links li a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    font-size: 16px;
+    line-height: 1.2;
+}
+
+.sidebar .nav-links li a span {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.sidebar .nav-links li a p {
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+}
+
+/* Sidebar logo */
 .sidebar .logo {
-    margin-bottom: 0;
-    text-align: center;
+    height: 60px; /* samakan tinggi dengan topbar */
+    background-color: var(--purple-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+    box-sizing: border-box;
 }
 
+/* Biar logo gambar gak terlalu tinggi */
 .sidebar .logo img {
-    height: 50px;
+    max-height: 40px; /* sesuaikan agar pas di tengah */
     width: auto;
-    max-width: 100%;
-    object-fit: contain;
-    transition: height 0.3s ease;
 }
+
+.sidebar-divider {
+    height: 1px;
+    background-color: var(--divider-color);
+    margin: 0 1rem;
+}
+
 
 .sidebar ul {
     list-style: none;
@@ -85,19 +135,23 @@ html, body {
     flex-direction: column;
     min-height: 100vh;
     transition: margin-left 0.3s ease, width 0.3s ease;
+    
 }
 
 /* TOPBAR */
 .topbar {
-    width: 100%;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
+    position: fixed;
+    top: 0;
+    left: 250px;
+    width: calc(100% - 250px);
     display: flex;
-    justify-content: space-between; /* supaya menu-toggle kiri, user-info kanan */
+    justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    margin-top: 0.5rem;
-    box-sizing: border-box;
+    background: linear-gradient(to right, #dcccf2, #aee6e1, #fce38a);
+    border-bottom: 1px solid #ddd;
+    z-index: 1000;
+    height: 60px;
 }
 
 .user-info {
@@ -117,57 +171,26 @@ html, body {
     flex: 1;
 }
 
-/* Toggle menu hamburger */
 .menu-toggle {
+    margin: 0;
+    padding: 0;
     width: 30px;
     height: 25px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    cursor: pointer;
-    margin-right: 0;
-}
-
-.menu-toggle span {
-    display: block;
-    height: 3px;
-    background-color: #553a79;
-    border-radius: 2px;
-    transition: background-color 0.3s ease;
-}
-
-.menu-toggle:hover span {
-    background-color: #77d6d2;
-}
-
-/* ==== SIDEBAR COLLAPSED === */
-.pakar-container.sidebar-collapsed .sidebar {
-    width: 60px;
-    min-width: 60px;
-    padding: 2rem 0.5rem;
     align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    color: #553a79; /* warna ikon */
+    transition: color 0.3s ease;
+    font-size: 24px;
+    user-select: none;
 }
 
-.pakar-container.sidebar-collapsed .sidebar .logo img {
-    height: 40px;
+.menu-toggle:hover {
+    color: #77d6d2;
 }
 
-.pakar-container.sidebar-collapsed .sidebar ul li a {
-    justify-content: center; /* hanya icon di tengah */
-    gap: 0;
-}
-
-.pakar-container.sidebar-collapsed .sidebar ul li a span:not(:first-child) {
-    display: none; /* sembunyikan teks, hanya icon yang tampil */
-}
-
-/* main wrapper melebar saat sidebar collapse */
-.pakar-container.sidebar-collapsed .main-wrapper {
-    margin-left: 60px;
-    width: calc(100% - 60px);
-}
-
-/* footer ikut melebar (contoh jika footer pakai margin kiri) */
-.pakar-container.sidebar-collapsed footer {
-    margin-left: 60px;
+.menu-toggle i {
+    font-size: 24px;
+    user-select: none; /* agar ikon tidak terselect saat klik */
 }

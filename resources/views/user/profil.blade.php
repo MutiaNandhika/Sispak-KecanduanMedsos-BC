@@ -9,10 +9,6 @@
 
 @section('content')
 <div class="profil-container">
-    
-    <div class="back-button">
-        <a href="{{ url('/user') }}">⬅ <span>Kembali</span></a>
-    </div>
 
     <div class="profil-card">
         <h2>Profil Pengguna</h2>

@@ -3,20 +3,6 @@
     flex: 1;
 }
 
-.topbar {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    height: 50px;
-    padding: 0 1.5rem;
-    border-bottom: 1px solid #ddd;
-    background-color: #fff;
-}
-
-.topbar .user-info {
-    text-align: right;
-    font-size: 0.9rem;
-}
 
 .dashboard-content {
     max-width: 900px;

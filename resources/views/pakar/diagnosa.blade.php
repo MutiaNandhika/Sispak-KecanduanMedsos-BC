@@ -3,15 +3,18 @@
 @section('title', 'Data Diagnosa')
 
 @push('styles')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="{{ asset('css/pakar/diagnosa.css') }}">
 @endpush
 
-@section('content')
-<div class="diagnosa-container">
-    <h2 class="table-header">Data Diagnosa</h2>
 
-    <div class="table-wrapper">
-        <table class="diagnosa-table">
+@section('content')
+
+<h2 class="table-header">Data Diagnosa</h2>
+<div class="diagnosa-container">
+
+    
+        <table id="example1" class="diagnosa-table">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -44,7 +47,7 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
+    
 
     <!-- Modal for adding notes -->
     <div id="verificationModal" class="modal" style="display: none;">
@@ -69,7 +72,22 @@
 @endsection
 
 @push('scripts')
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script>
+    $(function () {
+        $("#example1").DataTable({
+        responsive: true,
+        lengthChange: false,
+        autoWidth: false,
+        ordering: true,
+        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+        columnDefs: [
+        { orderable: false, targets: -1 }
+        ]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+
     document.addEventListener('DOMContentLoaded', function() {
         const modal = document.getElementById('verificationModal');
         const form = document.getElementById('verificationForm');
