@@ -3,19 +3,19 @@
 @section('title', 'Data Pengguna')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/admin/user.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin/pengguna.css') }}">
 @endpush
 
 @section('content')
-<div class="data-container">
-    <h1 class="data-title">Data Pengguna</h1>
+<div class="pengguna-container"> {{-- disamakan dengan pengguna --}}
+    <h1 class="pengguna-title">Data Pengguna</h1>
 
-    <div class="data-actions">
-        <a href="{{ route('admin.user.create') }}" class="btn tambah-btn">Tambah Pengguna +</a>
+    <div class="pengguna-actions"> {{-- disamakan --}}
+        <a href="{{ route('admin.user.create') }}" class="tambah-btn">Tambah Pengguna +</a>
     </div>
 
     <div class="table-wrapper">
-        <table class="data-table">
+        <table class="pengguna-table"> {{-- disamakan --}}
             <thead>
                 <tr>
                     <th>ID</th>
@@ -32,7 +32,7 @@
                     <td>{{ $user->nama }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ ucfirst($user->role) }}</td>
-                    <td class="action-icons">
+                    <td class="action-icons"> {{-- disamakan --}}
                         <a href="{{ route('admin.user.edit', $user->id_user) }}" class="edit-icon" title="Ubah">✏️</a>
                         <form action="{{ route('admin.user.destroy', $user->id_user) }}"
                               method="POST"
@@ -40,7 +40,7 @@
                               style="display:inline">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="delete-icon" title="Hapus">🗑️</button>
+                            <button type="button" class="delete-icon" title="Hapus" style="background: none; border: none; cursor: pointer;">🗑️</button>
                         </form>
                     </td>
                 </tr>
@@ -58,12 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.form-hapus button').forEach(btn => {
         btn.addEventListener('click', () => {
             Swal.fire({
-                title: 'Hapus Pengguna?',
-                text: 'Data pengguna akan dihapus permanen.',
+                title: 'Hapus Data?',
+                text: 'Apakah Anda yakin ingin menghapus pengguna ini?',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#6C5ECF',
-                cancelButtonColor: '#AAA',
+                confirmButtonColor: '#e53935',
+                cancelButtonColor: '#aaa',
                 confirmButtonText: 'Ya, hapus!',
                 cancelButtonText: 'Batal'
             }).then(result => {
