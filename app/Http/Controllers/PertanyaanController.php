@@ -80,4 +80,29 @@ class PertanyaanController extends Controller
 
         return redirect()->route('admin.pertanyaan.index')->with('success', 'Pertanyaan berhasil dihapus.');
     }
+
+     public function indexPakar()
+    {
+        $pertanyaans = Pertanyaan::all();
+        return view('pakar.pertanyaan', compact('pertanyaans'));
+    }
+
+    /**
+     * Verifikasi pertanyaan oleh pakar
+     */
+    public function verify(Request $request, $id_pertanyaan)
+    {
+        $request->validate([
+            'status_verifikasi' => 'required|in:diterima,ditolak',
+            'catatan_pakar' => 'nullable|string',
+        ]);
+
+        $pertanyaan = Pertanyaan::findOrFail($id_pertanyaan);
+        $pertanyaan->update([
+            'status_verifikasi' => $request->status_verifikasi,
+            'catatan_pakar' => $request->catatan_pakar,
+        ]);
+
+        return redirect()->back()->with('success', 'Status pertanyaan berhasil diperbarui.');
+    }   
 }

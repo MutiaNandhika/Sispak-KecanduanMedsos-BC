@@ -75,13 +75,13 @@
                     <span>❓</span> 
                     <p>Pertanyaan</p>
                 </a>
-            </li>
+            {{-- </li>
             <li class="{{ request()->is('pakar/pengguna*') ? 'active' : '' }}">
                 <a href="{{ route('pakar.pengguna.index') }}">
                     <span>👤</span> 
                     <p>Pengguna</p>
                 </a>
-            </li>
+            </li> --}}
             <li class="logout">
                 <a href="/login">
                     <span>⬅️</span> 

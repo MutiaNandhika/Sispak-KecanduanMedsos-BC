@@ -65,4 +65,26 @@ class SolusiController extends Controller
         Solusi::destroy($id);
         return redirect()->route('admin.solusi.index')->with('success', 'Solusi berhasil dihapus');
     }
+
+    public function indexPakar()
+    {
+        $solusis = Solusi::all();
+        return view('pakar.solusi', compact('solusis'));
+    }
+
+    public function verify(Request $request, $id_solusi)
+    {
+        $request->validate([
+            'status_verifikasi' => 'required|in:diterima,ditolak',
+            'catatan_pakar' => 'nullable|string',
+        ]);
+
+        $solusi = Solusi::findOrFail($id_solusi);
+        $solusi->update([
+            'status_verifikasi' => $request->status_verifikasi,
+            'catatan_pakar' => $request->catatan_pakar,
+        ]);
+
+        return redirect()->back()->with('success', 'Status solusi berhasil diperbarui.');
+    }    
 }

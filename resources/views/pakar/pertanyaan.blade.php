@@ -3,33 +3,128 @@
 @section('title', 'Data Pertanyaan')
 
 @push('styles')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="{{ asset('css/pakar/pertanyaan.css') }}">
 @endpush
 
 @section('content')
-<div class="pertanyaan-container">
-    <h2 class="table-header">Data Pertanyaan</h2>
 
-    <table class="pertanyaan-table">
+<h2 class="table-header">Data Pertanyaan</h2>
+<div class="pertanyaan-container">
+    
+    <table id="example1" class="pertanyaan-table">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Diagnosa</th>
+                <th>Gejala</th>
                 <th>Pertanyaan</th>
+                <th>Status</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
+            @foreach ($pertanyaans as $pertanyaan)
             <tr>
-                <td>1</td>
-                <td>Tidak Kecanduan</td>
-                <td>Pertanyaan </td>
+                <td>{{ $pertanyaan->id_pertanyaan }}</td>
+                <td>{{ $pertanyaan->gejala->nama_gejala }}</td>
+                <td>{{ $pertanyaan->pertanyaan_gejala }}</td>
+                <td>
+                    <span class="status-badge status-{{ $pertanyaan->status_verifikasi }}">
+                        {{ ucfirst($pertanyaan->status_verifikasi) }}
+                    </span>
+                </td>
                 <td class="aksi-icons">
-                    <button class="icon-btn" title="Validasi"><span>✔️</span></button>
-                    <button class="icon-btn" title="Tolak"><span>❌</span></button>
+                    <button class="icon-btn accept-btn" data-id="{{ $pertanyaan->id_pertanyaan }}" title="Terima">
+                        <span>✔️</span>
+                    </button>
+                    <button class="icon-btn reject-btn" data-id="{{ $pertanyaan->id_pertanyaan }}" title="Tolak">
+                        <span>❌</span>
+                    </button>
                 </td>
             </tr>
+            @endforeach
         </tbody>
     </table>
+
+    <!-- Modal for adding notes -->
+    <div id="verificationModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <button class="close-modal" type="button">&times;</button>
+            <h3 id="modal-title">Verifikasi Pertanyaan</h3>
+            <form id="verificationForm" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" id="status_verifikasi" name="status_verifikasi">
+                <div class="form-group">
+                    <label for="catatan_pakar">Catatan (opsional):</label>
+                    <textarea id="catatan_pakar" name="catatan_pakar" rows="4" placeholder="Masukkan catatan jika diperlukan"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 @endsection
+
+@push('scripts')
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            responsive: true,
+            lengthChange: false,
+            autoWidth: false,
+            ordering: true,
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            columnDefs: [
+                { orderable: false, targets: -1 }
+            ]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('verificationModal');
+        const form = document.getElementById('verificationForm');
+        const closeBtn = document.querySelector('.close-modal');
+        const statusInput = document.getElementById('status_verifikasi');
+        const modalTitle = document.getElementById('modal-title');
+        
+        // Accept button click
+        document.querySelectorAll('.accept-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                statusInput.value = 'diterima';
+                modalTitle.textContent = 'Terima Pertanyaan';
+                form.action = `/pakar/pertanyaan/${id}/verify`;
+                modal.style.display = 'block';
+            });
+        });
+        
+        // Reject button click
+        document.querySelectorAll('.reject-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                statusInput.value = 'ditolak';
+                modalTitle.textContent = 'Tolak Pertanyaan';
+                form.action = `/pakar/pertanyaan/${id}/verify`;
+                modal.style.display = 'block';
+            });
+        });
+        
+        // Close modal
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+</script>
+@endpush

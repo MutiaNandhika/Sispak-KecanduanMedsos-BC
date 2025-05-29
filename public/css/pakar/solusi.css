@@ -1,19 +1,19 @@
 .solusi-container {
     margin: 0.1rem auto;       /* tengah horizontal */
-    padding: 1rem 1rem;        /* kasih padding kiri kanan lebih lega */
+    padding: 1.5rem;        /* kasih padding kiri kanan lebih lega */
     width: 100%;               /* lebar 100% dari parent */
-    max-width: 1600px;         /* maksimal lebar 1200px supaya gak terlalu lebar */
+    max-width: 1200px;         /* maksimal lebar 1200px supaya gak terlalu lebar */
     box-sizing: border-box;    
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(125, 104, 152, 0.5);
+    box-shadow: 0 6px 20px rgba(125, 104, 152, 0.2);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 
 /* Header table */
 .table-header {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
     color: #1F5E5D;
@@ -21,13 +21,21 @@
     letter-spacing: 0.05em;
 }
 
+/* Table wrapper untuk responsif dan overflow */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(125, 104, 152, 0.1);
+}
+
 /* Tabel dengan fixed layout agar kolom tidak melebar sesuai isi */
 .solusi-table {
     width: 100%;
-    border-collapse: separate;  /* supaya border-radius bisa bekerja */
-    border-spacing: 0 8px;      /* jarak antar baris */
+    border-collapse: collapse; /* Ubah ke collapse agar tidak ada celah */
     font-size: 0.95rem;
-    table-layout: fixed;         /* penting, agar kolom fixed */
+    table-layout: fixed;
+    padding-top: 1rem;
 }
 
 /* Header baris */
@@ -36,94 +44,285 @@
     color: #7D6898;
     text-transform: uppercase;
     font-size: 0.9rem;
-    border-radius: 10px 10px 0 0;
+    font-weight: 600;
 }
 
 /* Header kolom dan cell */
 .solusi-table th,
 .solusi-table td {
-    padding: 14px 20px;
+    padding: 14px 15px;
     text-align: left;
-    /* Hapus ini supaya teks bisa wrap */
-    white-space: normal; /* default adalah nowrap, diganti jadi normal */
-    overflow-wrap: break-word; /* supaya kata panjang tetap terbungkus */
-    word-wrap: break-word; /* untuk kompatibilitas */
+    vertical-align: middle;
+    border-bottom: 1px solid #eee;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
-
 
 /* Atur lebar tiap kolom sesuai kebutuhan */
 .solusi-table th:nth-child(1),
 .solusi-table td:nth-child(1) {
-    width: 10%;   /* ID */
+    width: 8%;   /* ID */
+    text-align: center;
 }
 
 .solusi-table th:nth-child(2),
 .solusi-table td:nth-child(2) {
-    width: 30%;   /* diagnosa */
+    width: 20%;   /* Diagnosa */
 }
 
 .solusi-table th:nth-child(3),
 .solusi-table td:nth-child(3) {
-    width: 45%;   /* solusi */
+    width: 40%;   /* Solusi */
 }
 
 .solusi-table th:nth-child(4),
 .solusi-table td:nth-child(4) {
-    width: 15%;   /* Aksi */
+    width: 15%;   /* Status */
+    text-align: center;
+}
+
+.solusi-table th:nth-child(5),
+.solusi-table td:nth-child(5) {
+    width: 17%;   /* Aksi */
+    text-align: center;
 }
 
 /* Style baris data */
 .solusi-table tbody tr {
     background: #fafafa;
-    box-shadow: 0 2px 8px rgba(125, 104, 152, 0.1);
-    border-radius: 10px;
     transition: background-color 0.3s ease;
 }
 
 /* Hover effect */
 .solusi-table tbody tr:hover {
-    background-color: #f0e7ff;
-    cursor: default;
+    background-color: #f5f0ff;
 }
 
-/* Baris genap dengan warna berbeda */
-.solusi-table tbody tr:nth-child(even) {
-    background-color: #f6f2ff;
-}
-
-/* Style tombol validasi, kalau diperlukan */
-.btn-validate {
-    background-color: #7D6898;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px; /* dari 999px jadi kotak sudut agak membulat */
-    color: #fff;
+/* Badge status */
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-block;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    min-width: 80px;
+    text-align: center;
+}
+
+.status-pending {
+    background-color: #FFF3CD;
+    color: #856404;
+}
+
+.status-diterima {
+    background-color: #D4EDDA;
+    color: #155724;
+}
+
+.status-ditolak {
+    background-color: #F8D7DA;
+    color: #721C24;
+}
+
+/* Tombol aksi */
+.aksi-icons {
+    display: flex;
+    justify-content: center;
+    gap: 12px; /* Sedikit memperbesar jarak antar tombol */
+    align-items: center; /* Memusatkan tombol secara vertikal */
+    width: 100%; /* Menggunakan lebar penuh dari cell */
+    height: 100%; /* Menggunakan tinggi penuh dari cell */
+    padding: 0; /* Menghapus padding internal */
+    margin: 0 auto; /* Menambahkan margin auto untuk penyeimbangan extra */
+    box-sizing: border-box; /* Memastikan padding tidak menambah ukuran */
+}
+
+.icon-btn {
+    width: 36px; /* Sedikit memperbesar ukuran tombol */
+    height: 36px;
+    background: none;
+    border: none;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(125, 104, 152, 0.3);
-    transition: background-color 0.3s ease;
+    border-radius: 50%; /* Mengubah ke bentuk bulat untuk visual yang lebih baik */
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0; /* Menghapus padding internal di tombol */
+    position: relative; /* Untuk positioning relatif elemen anak */
 }
 
-
-.btn-validate:hover {
-    background-color: #5f4a82;
+.icon-btn span {
+    font-size: 18px; /* Sedikit memperbesar ukuran icon */
+    line-height: 1;
+    display: flex; /* Menggunakan flex untuk pemusatan yang lebih baik */
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
 }
 
-/* Tombol aksi sukses dan gagal */
-.btn-validate.success {
-    background-color: #4CAF50;
-    margin-right: 8px;
+.accept-btn {
+    background-color: rgba(76, 175, 80, 0.1);
+    border: 1px solid rgba(76, 175, 80, 0.3);
 }
 
-.btn-validate.danger {
-    background-color: #F44336;
+.reject-btn {
+    background-color: rgba(244, 67, 54, 0.1);
+    border: 1px solid rgba(244, 67, 54, 0.3);
 }
 
-.btn-validate.success:hover {
-    background-color: #388E3C;
+.accept-btn:hover {
+    background-color: rgba(76, 175, 80, 0.2);
+    transform: translateY(-2px);
 }
 
-.btn-validate.danger:hover {
-    background-color: #D32F2F;
+.reject-btn:hover {
+    background-color: rgba(244, 67, 54, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Modal styles */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto; /* Menambahkan margin auto untuk memusatkan */
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: slideDown 0.3s ease-out;
+    left: 0 !important; /* Memastikan tidak ada offset ke kiri */
+    transform: translateX(0) !important; /* Reset transformasi X */
+}
+
+/* Animasi untuk modal */
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s;
+    background: none;
+    border: none;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close-modal:hover {
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+#modal-title {
+    margin-top: 0;
+    color: #1F5E5D;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    resize: vertical;
+    font-family: inherit;
+    min-height: 100px;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+}
+
+.form-group textarea:focus {
+    border-color: #7D6898;
+    outline: none;
+}
+
+.form-actions {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.submit-btn {
+    background-color: #7D6898;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: 600;
+}
+
+.submit-btn:hover {
+    background-color: #6a5783;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .solusi-table {
+        table-layout: auto;
+    }
+    
+    .solusi-container {
+        padding: 1rem;
+    }
+    
+    .table-header {
+        font-size: 1.5rem;
+    }
+    
+    .solusi-table th:nth-child(3),
+    .solusi-table td:nth-child(3) {
+        max-width: 150px;
+    }
+    
+    .icon-btn {
+        width: 30px;
+        height: 30px;
+    }
 }

@@ -12,6 +12,7 @@ use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HasilDiagnosaController;
 use App\Http\Controllers\HasilGejalaController;
+use App\Models\Pertanyaan;
 
 // Welcome Page
 Route::get('/', function () {
@@ -102,19 +103,17 @@ Route::prefix('pakar')->middleware(\App\Http\Middleware\RoleMiddleware::class . 
     Route::put('/gejala/{id_gejala}/verify', [GejalaController::class, 'verify'])->name('pakar.gejala.verify');
     
     // Solusi routes - add pakar prefix to route name
-    Route::get('/solusi', function() {
-        return view('pakar.solusi');
-    })->name('pakar.solusi.index');
+    Route::get('/solusi', [SolusiController::class, 'indexPakar'])->name('pakar.solusi.index');
+    Route::put('/solusi/{id_solusi}/verify', [SolusiController::class, 'verify'])->name('pakar.solusi.verify');
     
     // Pertanyaan routes - add pakar prefix to route name
-    Route::get('/pertanyaan', function() {
-        return view('pakar.pertanyaan');
-    })->name('pakar.pertanyaan.index');
+    Route::get('/pertanyaan', [PertanyaanController::class, 'indexPakar'])->name('pakar.pertanyaan.index');
+    Route::put('/pertanyaan/{id_pertanyaan}/verify', [PertanyaanController::class, 'verify'])->name('pakar.pertanyaan.verify');
     
     // Pengguna routes - add pakar prefix to route name
-    Route::get('/pengguna', function() {
-        return view('pakar.pengguna');
-    })->name('pakar.pengguna.index');
+    // Route::get('/pengguna', function() {
+    //     return view('pakar.pengguna');
+    // })->name('pakar.pengguna.index');
     
     // Profil route - add pakar prefix to route name
     Route::get('/profil', function() {
