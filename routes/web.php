@@ -13,8 +13,9 @@ use App\Http\Controllers\UserController;
 
 
 // Welcome Page
-Route::get('/', fn () => view('welcome'));
-
+Route::get('/', function () {
+    return view('welcome-page');
+})->middleware('guest');
 // Auth Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -24,8 +25,8 @@ Route::post('/register', [RegisterController::class, 'register']);
 // Logout
 Route::get('/logout', function () {
     Auth::logout();
-    return redirect()->route('login');
-})->name('logout');
+    return redirect('/login');
+})->name('logout')->middleware('auth');
 
 // Admin Routes
 Route::prefix('admin')->middleware(\App\Http\Middleware\RoleMiddleware::class . ':admin')->group(function () {
