@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pertanyaan;
+use App\Models\AturanGejala;
+use App\Models\Diagnosa;
 use App\Models\Gejala;
 
 class PertanyaanController extends Controller
@@ -105,4 +107,15 @@ class PertanyaanController extends Controller
 
         return redirect()->back()->with('success', 'Status pertanyaan berhasil diperbarui.');
     }   
+
+    // Menampilkan Pertanyaan di User
+    public function tampilPertanyaan()
+    {
+        $pertanyaans = Pertanyaan::where('status_verifikasi', 'diterima')->with('gejala')->get();
+
+        $diagnosaIds = AturanGejala::pluck('id_diagnosa')->unique();
+        $diagnosas = Diagnosa::whereIn('id_diagnosa', $diagnosaIds)->get();
+
+        return view('user.pertanyaan', compact('pertanyaans', 'diagnosas'));
+    }
 }

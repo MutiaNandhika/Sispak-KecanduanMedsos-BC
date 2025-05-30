@@ -124,11 +124,15 @@ Route::prefix('pakar')->middleware(\App\Http\Middleware\RoleMiddleware::class . 
 // User Routes
 Route::middleware(\App\Http\Middleware\RoleMiddleware::class . ':user')->group(function () {
     Route::view('/user', 'user.beranda')->name('user.beranda');
+
     Route::view('/diagnosa', 'user.diagnosa')->name('user.diagnosa');
-    Route::view('/pertanyaan', 'user.pertanyaan')->name('user.pertanyaan');
-    Route::post('/output-tingkatan', fn () => view('user.output-tingkatan'))->name('user.output-tingkatan');
+
+    Route::get('/pertanyaan', [PertanyaanController::class, 'tampilPertanyaan'])->name('pertanyaan.user');
+    Route::post('/output-tingkatan', [DiagnosaController::class, 'prosesDiagnosa'])->name('pertanyaan.proses');
     Route::view('/output-tingkatan', 'user.output-tingkatan')->name('user.output-tingkatan-view');
     Route::view('/output-failed', 'user.output-failed')->name('user.output-failed');
+    Route::view('/output-not-detected', 'user.output-not-detected')->name('user.output-not-detected');
+
     Route::view('/profil', 'user.profil')->name('user.profil');
 });
 

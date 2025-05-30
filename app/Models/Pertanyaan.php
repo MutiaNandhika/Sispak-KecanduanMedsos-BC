@@ -30,4 +30,9 @@ class Pertanyaan extends Model
         return $this->hasMany(HasilGejala::class, 'id_gejala', 'id_gejala');
     }
 
+    public function jawaban()
+    {
+        return $this->hasMany(Jawaban::class, 'id_pertanyaan', 'id_pertanyaan');
+    }
+
 }

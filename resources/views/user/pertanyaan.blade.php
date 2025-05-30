@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'pertanyaan Media Sosial')
+@section('title', 'Pertanyaan Media Sosial')
 
 @push('styles')
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -10,35 +10,28 @@
 @section('content')
 <div class="pertanyaan-container">
     <div class="pertanyaan-header">
-        <h3>Tingkat Tidak Kecanduan</h3>
+        @php
+            $judulDiagnosa = $diagnosas->pluck('nama_diagnosa')->implode(', ');
+        @endphp
+        <h3>Kuesioner {{ $judulDiagnosa }}</h3>
     </div>
 
     <form action="{{ url('/output-tingkatan') }}" method="POST">
         @csrf
 
-        <div class="pertanyaan-question">
-            <p>Menggunakan media sosial hanya saat waktu senggang?</p>
-            <label><input type="radio" name="q1" value="ya"> Ya</label>
-            <label><input type="radio" name="q1" value="tidak"> Tidak</label>
-        </div>
-
-        <div class="pertanyaan-question">
-            <p>Tidak merasa gelisah saat tidak membuka media sosial?</p>
-            <label><input type="radio" name="q2" value="ya"> Ya</label>
-            <label><input type="radio" name="q2" value="tidak"> Tidak</label>
-        </div>
-
-        <div class="pertanyaan-question">
-            <p>Tidak merasa harus tahu semua aktivitas orang lain di media sosial?</p>
-            <label><input type="radio" name="q3" value="ya"> Ya</label>
-            <label><input type="radio" name="q3" value="tidak"> Tidak</label>
-        </div>
-
-        <div class="pertanyaan-question">
-            <p>Bisa berhenti menggunakan media sosial kapan pun?</p>
-            <label><input type="radio" name="q4" value="ya"> Ya</label>
-            <label><input type="radio" name="q4" value="tidak"> Tidak</label>
-        </div>
+        @forelse ($pertanyaans as $index => $pertanyaan)
+            <div class="pertanyaan-question">
+                <p>{{ $index + 1 }}. {{ $pertanyaan->pertanyaan_gejala }}</p>
+                <label>
+                    <input type="radio" name="q{{ $pertanyaan->id_pertanyaan }}" value="ya" required> Ya
+                </label>
+                <label>
+                    <input type="radio" name="q{{ $pertanyaan->id_pertanyaan }}" value="tidak" required> Tidak
+                </label>
+            </div>
+        @empty
+            <p>Tidak ada pertanyaan tersedia saat ini.</p>
+        @endforelse
 
         <div class="pertanyaan-submit">
             <button type="submit">Cek Hasil</button>

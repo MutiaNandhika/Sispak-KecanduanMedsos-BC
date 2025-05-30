@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Diagnosa;
+use App\Models\Pertanyaan;
+use App\Models\Jawaban;
+use App\Models\AturanGejala;
+use App\Models\HasilDiagnosa;
+use Illuminate\Support\Facades\Auth;
+
 
 class DiagnosaController extends Controller
 {
@@ -82,11 +88,75 @@ class DiagnosaController extends Controller
         return view('pakar.diagnosa', compact('diagnosas'));
     }
 
-    // Tambahkan method destroy untuk hapus diagnosa
     public function destroy($id)
     {
         Diagnosa::destroy($id);
         return redirect()->route('admin.diagnosa.index')->with('success', 'Diagnosa berhasil dihapus');
     }
+
+    //Diagnosa User
+   public function prosesDiagnosa(Request $request)
+    {
+        $jawabanYa = [];
+
+        foreach ($request->except('_token') as $key => $jawaban) {
+            $idPertanyaan = str_replace('q', '', $key);
+            $pertanyaan = Pertanyaan::find($idPertanyaan);
+
+            if (!$pertanyaan) continue;
+
+            Jawaban::create([
+                'id_user' => Auth::id(),
+                'id_pertanyaan' => $idPertanyaan,
+                'jawaban' => $jawaban,
+            ]);
+
+            if ($jawaban === 'ya') {
+                $jawabanYa[] = $pertanyaan->id_gejala;
+            }
+        }
+
+        // Jika belum memenuhi syarat minimum 3 jawaban "ya"
+        if (count($jawabanYa) < 3) {
+            return redirect('/output-failed');
+        }
+
+        $diagnosaLayak = [];
+
+        $semuaDiagnosa = Diagnosa::where('status_verifikasi', 'diterima')->get();
+
+        foreach ($semuaDiagnosa as $diagnosa) {
+            $gejalaDiagnosa = AturanGejala::where('id_diagnosa', $diagnosa->id_diagnosa)
+                ->pluck('id_gejala')
+                ->toArray();
+
+            $jumlahCocok = count(array_intersect($gejalaDiagnosa, $jawabanYa));
+
+            if ($jumlahCocok >= 3) {
+                HasilDiagnosa::create([
+                    'id_user' => Auth::id(),
+                    'id_diagnosa' => $diagnosa->id_diagnosa,
+                ]);
+
+                $diagnosaLayak[] = [
+                    'diagnosa' => $diagnosa,
+                    'jumlah_cocok' => $jumlahCocok
+                ];
+            }
+        }
+
+        // Jika tidak ada diagnosa yang cocok
+        if (empty($diagnosaLayak)) {
+            return view('user.output-not-detected');
+        }
+
+        // Jika ada diagnosa yang cocok
+        return view('user.output-tingkatan', [
+            'diagnosas' => $diagnosaLayak,
+            'jumlahYa' => count($jawabanYa),
+        ]);
+    }
+
 }
+
 
