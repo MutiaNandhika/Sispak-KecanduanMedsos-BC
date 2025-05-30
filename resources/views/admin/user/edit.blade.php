@@ -45,7 +45,7 @@
         <div class="form-group">
             <label for="email">Email</label>
             <input 
-                type="email" 
+                type="text" 
                 name="email" 
                 id="email" 
                 required 
@@ -60,7 +60,7 @@
         <div class="form-group">
             <label for="password">Password <small>(kosongkan jika tidak diubah)</small></label>
             <input 
-                type="password" 
+                type="text" 
                 name="password" 
                 id="password"
             >

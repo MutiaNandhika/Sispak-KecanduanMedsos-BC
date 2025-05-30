@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\Diagnosa;
 use App\Models\Pertanyaan;
@@ -9,7 +8,7 @@ use App\Models\Jawaban;
 use App\Models\AturanGejala;
 use App\Models\HasilDiagnosa;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;    // ← keep this façade import
 
 class DiagnosaController extends Controller
 {
@@ -90,8 +89,27 @@ class DiagnosaController extends Controller
 
     public function destroy($id)
     {
+        // Hapus record
         Diagnosa::destroy($id);
-        return redirect()->route('admin.diagnosa.index')->with('success', 'Diagnosa berhasil dihapus');
+
+        // Reset penomoran AUTO_INCREMENT / sequence
+        $table = (new Diagnosa)->getTable();
+
+        // Untuk MySQL / MariaDB
+        if (DB::getDriverName() === 'mysql') {
+            // Set next AUTO_INCREMENT ke 1, atau jika masih ada data, ke max(id)+1
+            $max = DB::table($table)->max((new Diagnosa)->getKeyName()) ?? 0;
+            DB::statement("ALTER TABLE `{$table}` AUTO_INCREMENT = " . ($max + 1));
+        }
+        // Untuk SQLite
+        elseif (DB::getDriverName() === 'sqlite') {
+            DB::statement("DELETE FROM sqlite_sequence WHERE name = ?", [$table]);
+        }
+        // (Anda bisa tambahkan driver lain seperti PostgreSQL jika perlu)
+
+        return redirect()
+            ->route('admin.diagnosa.index')
+            ->with('success', 'Diagnosa berhasil dihapus, dan penomoran ID telah di‐reset.');
     }
 
     //Diagnosa User

@@ -41,7 +41,7 @@
         <div class="form-group">
             <label for="email">Email</label>
             <input 
-                type="email" 
+                type="text" 
                 name="email" 
                 id="email" 
                 value="{{ old('email') }}" 
@@ -55,7 +55,7 @@
         <div class="form-group">
             <label for="password">Password</label>
             <input 
-                type="password" 
+                type="text" 
                 name="password" 
                 id="password" 
                 required

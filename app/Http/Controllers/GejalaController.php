@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Gejala;
+use Illuminate\Support\Facades\DB;
 
 class GejalaController extends Controller
 {
@@ -58,10 +59,25 @@ class GejalaController extends Controller
 
     public function destroy($id_gejala)
     {
-        $gejala = Gejala::findOrFail($id_gejala);
-        $gejala->delete();
+        // Hapus record
+        Gejala::destroy($id_gejala);
 
-        return redirect()->route('admin.gejala.index')->with('success', 'Gejala berhasil dihapus.');
+        // Reset penomoran AUTO_INCREMENT / sequence
+        $table = (new Gejala)->getTable();
+
+        // Untuk MySQL / MariaDB
+        if (DB::getDriverName() === 'mysql') {
+            $max = DB::table($table)->max((new Gejala)->getKeyName()) ?? 0;
+            DB::statement("ALTER TABLE `{$table}` AUTO_INCREMENT = " . ($max + 1));
+        }
+        // Untuk SQLite
+        elseif (DB::getDriverName() === 'sqlite') {
+            DB::statement("DELETE FROM sqlite_sequence WHERE name = ?", [$table]);
+        }
+
+        return redirect()
+            ->route('admin.gejala.index')
+            ->with('success', 'Gejala berhasil dihapus, dan penomoran ID telah di‐reset.');
     }
 
     public function indexPakar()

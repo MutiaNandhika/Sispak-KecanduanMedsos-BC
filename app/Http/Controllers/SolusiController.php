@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Solusi;
 use App\Models\Diagnosa;
+use Illuminate\Support\Facades\DB;
 
 class SolusiController extends Controller
 {
@@ -62,8 +63,27 @@ class SolusiController extends Controller
 
     public function destroy($id)
     {
+        // Hapus record
         Solusi::destroy($id);
-        return redirect()->route('admin.solusi.index')->with('success', 'Solusi berhasil dihapus');
+
+        // Reset penomoran AUTO_INCREMENT / sequence
+        $model = new Solusi;
+        $table = $model->getTable();
+        $key   = $model->getKeyName();
+
+        if (DB::getDriverName() === 'mysql') {
+            // ambil nilai max(id) lalu set AUTO_INCREMENT ke max+1
+            $max = DB::table($table)->max($key) ?? 0;
+            DB::statement("ALTER TABLE `{$table}` AUTO_INCREMENT = " . ($max + 1));
+        }
+        elseif (DB::getDriverName() === 'sqlite') {
+            // reset sqlite_sequence agar rowid kembali rapat
+            DB::statement("DELETE FROM sqlite_sequence WHERE name = ?", [$table]);
+        }
+
+        return redirect()
+            ->route('admin.solusi.index')
+            ->with('success', 'Solusi berhasil dihapus, dan penomoran ID telah di‐reset.');
     }
 
     public function indexPakar()
