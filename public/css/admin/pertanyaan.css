@@ -1,30 +1,27 @@
+/* Import font Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
 .dashboard-content {
     margin: 0 !important;
     max-width: 100% !important;
-    padding: 0 1.5rem !important;
+    padding: 0 1rem !important;
 }
 
-.pertanyaan-container {
-    margin: 1.5rem 0 2rem 0; /* Atas 1.5rem, bawah 2rem */
-    padding: 0 1.5rem;
-    width: 100%;
-}
-
-/* Judul Halaman */
 .pertanyaan-title {
-    display: none;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1F5E5D;
+    margin-bottom: 0;
+    text-align: left;
 }
 
-
-/* Tombol Tambah */
 .pertanyaan-actions {
     text-align: left;
-    margin-top: 1.5rem; /* Tambahkan jarak dari topbar */
-    margin-bottom: 1.2rem;
-}
-
-.table-wrapper {
-    margin-bottom: 2rem; /* Tambahkan jarak dari footer */
+    margin-bottom: 1rem;
 }
 
 .tambah-btn {
@@ -45,42 +42,128 @@
     background-color: #6a48a8;
 }
 
-/* Tabel */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(125, 104, 152, 0.1);
+    margin-bottom: 2rem;
+}
+
 .pertanyaan-table {
     width: 100%;
     border-collapse: collapse;
     background-color: #fff;
     font-size: 0.95rem;
+    table-layout: fixed;
 }
 
-.pertanyaan-table thead {
-    background-color: #f5f5fc;
+.pertanyaan-table thead tr {
+    background-color: #EBDEFC;
+    color: #7D6898;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 
 .pertanyaan-table th,
 .pertanyaan-table td {
-    padding: 0.9rem 1rem;
+    padding: 14px 15px;
     text-align: left;
-    border: 1px solid #e0e0e0;
     vertical-align: middle;
+    border-bottom: 1px solid #eee;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
-.pertanyaan-table th {
+.pertanyaan-table th:nth-child(1),
+.pertanyaan-table td:nth-child(1) {
+    width: 6%; /* ID */
+    text-align: center;
+}
+
+.pertanyaan-table th:nth-child(2),
+.pertanyaan-table td:nth-child(2) {
+    width: 20%; /* Diagnosa */
+}
+
+.pertanyaan-table th:nth-child(3),
+.pertanyaan-table td:nth-child(3) {
+    width: 30%; /* pertanyaan */
+}
+
+.pertanyaan-table th:nth-child(4),
+.pertanyaan-table td:nth-child(4) {
+    width: 15%; /* Status */
+    text-align: center;
+}
+
+.pertanyaan-table th:nth-child(5),
+.pertanyaan-table td:nth-child(5) {
+    width: 17%; /* Catatan */
+}
+
+.pertanyaan-table th:nth-child(6),
+.pertanyaan-table td:nth-child(6) {
+    width: 12%; /* Aksi */
+    text-align: center;
+}
+
+.pertanyaan-table tbody tr {
+    background: #fafafa;
+    transition: background-color 0.3s ease;
+}
+
+.pertanyaan-table tbody tr:hover {
+    background-color: #f5f0ff;
+}
+
+.badge,
+.status-pending,
+.status-diterima,
+.status-ditolak {
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-block;
     font-weight: 600;
-    color: #333;
+    font-size: 0.8rem;
+    min-width: 80px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
 }
 
-/* Aksi */
+.status-pending {
+    background-color: #FFF3CD;
+    color: #856404;
+}
+
+.status-diterima {
+    background-color: #D4EDDA;
+    color: #155724;
+}
+
+.status-ditolak {
+    background-color: #F8D7DA;
+    color: #721C24;
+}
+
 .action-icons {
     display: flex;
-    gap: 0.7rem;
+    justify-content: center;
+    gap: 12px;
     align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .edit-icon,
 .delete-icon {
     font-size: 1.1rem;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .edit-icon {
@@ -89,4 +172,46 @@
 
 .delete-icon {
     color: #d32f2f;
+}
+
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+    text-align: right;
+    font-family: 'Poppins', sans-serif;
+    margin: 1rem 1rem 1rem 0;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    font-family: 'Poppins', sans-serif;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-left: 0.5em;
+}
+
+.dataTables_info {
+    font-size: 0.85rem !important;
+    color: #444;
+    font-family: 'Poppins', sans-serif;
+    margin: 0.5rem 1rem 1.5rem;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    padding: 0 1rem 1.5rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+@media (max-width: 768px) {
+    .pertanyaan-table {
+        table-layout: auto;
+    }
+
+    .pertanyaan-title {
+        font-size: 1.5rem;
+    }
+
+    .pertanyaan-table th:nth-child(3),
+    .pertanyaan-table td:nth-child(3) {
+        max-width: 150px;
+    }
 }
