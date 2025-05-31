@@ -1,6 +1,10 @@
 @extends('layouts.pakar')
 @section('title', 'Dashboard Pakar')
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/pakar/dashboard.css') }}">
+@endpush
+
 @section('content')
 <h1>Welcome Back, {{ Auth::user()->nama }}!</h1>
 <img src="{{ asset('images/logo.png') }}" alt="SOSMEDCARE" class="welcome-logo">

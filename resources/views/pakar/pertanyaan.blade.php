@@ -78,6 +78,7 @@
             lengthChange: false,
             autoWidth: false,
             ordering: true,
+            pageLength: 5,
             buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
             columnDefs: [
                 { orderable: false, targets: -1 }

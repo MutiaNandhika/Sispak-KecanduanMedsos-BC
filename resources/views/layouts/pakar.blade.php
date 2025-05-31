@@ -9,31 +9,11 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('images/icon-logo.png') }}">
-
     <!-- CSS Pakar -->
     <link rel="stylesheet" href="{{ asset('css/pakar/pakar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/pakar/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
-
     @stack('styles')
-
-
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    
-    <!-- DataTables Buttons extension -->
-    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
 
     
 </head>
@@ -93,12 +73,10 @@
     </aside>
 
     <!-- Wrapper Konten -->
-    <div class="main-wrapper">
+    <div class="main-wrapper" id="main-wrapper">
         <!-- Header -->
-        <header class="topbar">
-            <div class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </div>
+        <header class="topbar" id="topbar">
+            <div class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
 
             <div class="user-info">
                 <a href="{{ route('pakar.profil.index') }}" style="text-decoration: none; color: inherit;">
@@ -110,47 +88,32 @@
 
         <!-- Konten Utama -->
         <main class="dashboard-content">
-            @yield('content')
+            <div class="content-wrapper">
+                @yield('content')
+            </div>
         </main>
 
-        <!-- Footer Khusus Admin -->
+        <!-- Footer Khusus pakar -->
         @include('partials.footer-pakar')
     </div>
 </div>
 
 @stack('scripts')
 
-@push('scripts')
-<!-- Script SweetAlert & lainnya -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
-  $(function() {
-  $("#example1").DataTable({
-    responsive: true,
-    lengthChange: false,
-    autoWidth: false,
-    ordering: true,
-    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
-    columnDefs: [
-      { orderable: false, targets: -1 }
-    ]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-  });
+    const toggleBtn = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const mainWrapper = document.getElementById('main-wrapper');
+    const topbar = document.getElementById('topbar');
 
- document.addEventListener("DOMContentLoaded", function () {
-        const toggle = document.getElementById('menuToggle');
-        const sidebar = document.getElementById('sidebar');
-        const wrapper = document.querySelector('.main-wrapper');
-
-        if (toggle && sidebar && wrapper) {
-            toggle.addEventListener('click', function () {
-                sidebar.classList.toggle('collapsed');
-                wrapper.classList.toggle('collapsed');
-            });
-        }
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        mainWrapper.classList.toggle('collapsed');
+        topbar.classList.toggle('collapsed');
     });
 </script>
+
+@push('scripts')
 
 @endpush
 

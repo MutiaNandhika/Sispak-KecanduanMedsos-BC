@@ -73,14 +73,15 @@
 <script>
     $(function () {
         $("#example1").DataTable({
-        responsive: true,
-        lengthChange: false,
-        autoWidth: false,
-        ordering: true,
-        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
-        columnDefs: [
-        { orderable: false, targets: -1 }
-        ]
+            responsive: true,
+            lengthChange: false,
+            autoWidth: false,
+            ordering: true,
+            pageLength: 5,
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            columnDefs: [
+            { orderable: false, targets: -1 }
+            ]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 

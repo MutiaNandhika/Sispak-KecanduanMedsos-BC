@@ -2,7 +2,6 @@
     box-sizing: border-box;
 }
 
-
 :root {
     --purple-light: #daccece8;
     --divider-color: #ddd;
@@ -35,46 +34,11 @@ html, body {
     display: flex;
     flex-direction: column;
     border-right: 1px solid #e0e0e0;
-
+    background-color: #ffffff;
 }
 
-.sidebar .nav-links {
-  line-height: 1.2 !important; /* Atur agar lebih rapat */
-  padding-top: 2px;
-  padding-bottom: 2px;
-  flex: 1;
-  padding: 1rem 0;
-}
-
-
-
-.sidebar .nav-links li {
-    padding: 6px ;
-}
-
-.sidebar .nav-links li a {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    font-size: 16px;
-    line-height: 1.2;
-}
-
-.sidebar .nav-links li a span {
-    font-size: 16px;
-    line-height: 1;
-}
-
-.sidebar .nav-links li a p {
-    margin: 0;
-    padding: 0;
-    line-height: 1.2;
-}
-
-/* Sidebar logo */
 .sidebar .logo {
-    height: 60px; /* samakan tinggi dengan topbar */
+    height: 60px;
     background-color: var(--purple-light);
     display: flex;
     align-items: center;
@@ -83,9 +47,8 @@ html, body {
     box-sizing: border-box;
 }
 
-/* Biar logo gambar gak terlalu tinggi */
 .sidebar .logo img {
-    max-height: 40px; /* sesuaikan agar pas di tengah */
+    max-height: 40px;
     width: auto;
 }
 
@@ -95,7 +58,6 @@ html, body {
     margin: 0 1rem;
 }
 
-
 .sidebar ul {
     list-style: none;
     padding: 0;
@@ -103,24 +65,30 @@ html, body {
 }
 
 .sidebar ul li {
-    margin: 1rem 0;
+    margin: 0.1rem 0;
+    
 }
 
 .sidebar ul li a {
     text-decoration: none;
     color: #000;
     font-weight: 600;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
+    padding: 0.1rem 0.7rem;
+    padding-left: 20px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    transition: justify-content 0.3s ease;
+    gap: 30px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+    height: 60px; /* atau sesuai kebutuhan */
 }
+
 
 .sidebar ul li a:hover,
 .sidebar ul li.active a {
     background-color: #77d6d2;
+    color: #fff;
 }
 
 .sidebar ul li.logout {
@@ -135,8 +103,16 @@ html, body {
     flex-direction: column;
     min-height: 100vh;
     transition: margin-left 0.3s ease, width 0.3s ease;
-    
 }
+
+.dashboard-content {
+    flex: 1;
+}
+
+.content-wrapper {
+    padding-bottom: 60px; 
+}
+
 
 /* TOPBAR */
 .topbar {
@@ -154,43 +130,50 @@ html, body {
     height: 60px;
 }
 
-.user-info {
-    text-align: right;
-    font-size: 0.9rem;
-    line-height: 1.4;
-    padding-left: 1rem;
-    padding-right: 0.25rem;
-    padding-bottom: 0.5rem;
+.menu-toggle {
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
 }
 
-/* Content utama */
+.user-info {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    text-align: right;
+}
+
+/* CONTENT */
 .dashboard-content {
-    padding-top: 0rem;
+    padding-top: 80px;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     flex: 1;
 }
 
-.menu-toggle {
-    margin: 0;
-    padding: 0;
-    width: 30px;
-    height: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    cursor: pointer;
-    color: #553a79; /* warna ikon */
-    transition: color 0.3s ease;
-    font-size: 24px;
-    user-select: none;
+/* COLLAPSED STATE */
+.sidebar.collapsed {
+    width: 60px;
 }
 
-.menu-toggle:hover {
-    color: #77d6d2;
+.main-wrapper.collapsed {
+    margin-left: 60px;
+    width: calc(100% - 60px);
 }
 
-.menu-toggle i {
-    font-size: 24px;
-    user-select: none; /* agar ikon tidak terselect saat klik */
+.topbar.collapsed {
+    left: 60px;
+    width: calc(100% - 60px);
+}
+
+.sidebar.collapsed ul li a {
+    justify-content: center;
+}
+
+
+.sidebar.collapsed ul li a p {
+    display: none;
+}
+
+.sidebar.collapsed .logo img {
+    max-height: 30px;
 }
