@@ -16,6 +16,8 @@ class Pertanyaan extends Model
     protected $fillable = [
         'id_gejala',
         'pertanyaan_gejala',
+        'status_verifikasi',
+        'catatan_pakar',
     ];
 
     public function gejala()
