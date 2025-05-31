@@ -5,6 +5,6 @@
 <h1>Welcome Back, {{ Auth::user()->nama }}!</h1>
 <img src="{{ asset('images/logo.png') }}" alt="SOSMEDCARE" class="welcome-logo">
 <p>
-    Disney merupakan salah satu perusahaan hiburan terkemuka di dunia. Perusahaan yang terkenal pula sebagai The Walt Disney Company tak dapat dilepaskan dari peran sang pendirinya yakni Walt Disney dalam memulai karirnya. Karir Walt pertama kali dimulai sejak 16 Oktober 1923 saat dia menandatangani kontrak dengan M. J. Winkler untuk produksi pertamanya yakni Alice Comedies. Sejak saat inilah dimulai perjalanan panjang Disney yang pada awalnya dikenal sebagai The Disney Brothers Studio.
+    Perkembangan teknologi informasi telah mendorong penggunaan media sosial seperti Instagram, TikTok, Facebook, dan X yang kini menjadi bagian dari kehidupan sehari-hari. Meskipun memberikan kemudahan dalam berinteraksi dan berbagi, penggunaan media sosial yang berlebihan dapat menyebabkan kecanduan, terutama pada remaja dan dewasa muda. Dampaknya meliputi penurunan produktivitas, gangguan psikologis, dan menurunnya kualitas hubungan sosial. Sayangnya, banyak orang tidak menyadari bahwa mereka telah kecanduan. Untuk mengatasi hal ini, dapat digunakan sistem pakar berbasis metode Backward Chaining yang mampu mendiagnosis tingkat kecanduan berdasarkan gejala yang dialami pengguna. Sistem ini diharapkan membantu masyarakat mengenali dan mencegah kecanduan media sosial sejak dini.
 </p>
 @endsection
