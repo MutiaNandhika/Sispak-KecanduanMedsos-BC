@@ -79,7 +79,7 @@
             </div>
 
             <div class="user-info">
-                <a href="{{ route('pakar.profil.index') }}" style="text-decoration: none; color: inherit;">
+                <a href="{{ route('admin.profil.index') }}" style="text-decoration: none; color: inherit;">
                     <strong>{{ Auth::user()->nama }}</strong><br>
                     <small>{{ Auth::user()->role }}</small>
                 </a>

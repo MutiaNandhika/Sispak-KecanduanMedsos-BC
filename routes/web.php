@@ -87,6 +87,10 @@ Route::prefix('admin')->middleware(\App\Http\Middleware\RoleMiddleware::class . 
         Route::get('/', [HasilGejalaController::class, 'index'])->name('index');
         Route::delete('/{id}', [HasilGejalaController::class, 'destroy'])->name('destroy');
     });
+
+    Route::get('/profil', function() {
+        return view('admin.profil');
+    })->name('admin.profil.index');
     
 });
 
