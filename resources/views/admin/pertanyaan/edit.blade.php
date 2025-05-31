@@ -19,7 +19,7 @@
             <select name="id_gejala" id="id_gejala" required>
                 <option value="">-- Pilih Gejala --</option>
                 @foreach ($gejalas as $gejala)
-                    <option value="{{ $gejala->id }}" 
+                    <option value="{{ $gejala->id_gejala }}" 
                         {{ $gejala->id == $pertanyaan->id_gejala ? 'selected' : '' }}>
                         {{ $gejala->nama_gejala }}
                     </option>

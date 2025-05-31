@@ -7,6 +7,8 @@ use App\Models\Pertanyaan;
 use App\Models\AturanGejala;
 use App\Models\Diagnosa;
 use App\Models\Gejala;
+use App\Models\HasilGejala; 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PertanyaanController extends Controller
@@ -27,7 +29,7 @@ class PertanyaanController extends Controller
             $pertanyaan = Pertanyaan::findOrFail($id_pertanyaan);
 
             HasilGejala::firstOrCreate([
-                'id_user' => auth()->id(),
+                'id_user' => Auth::id(),
                 'id_gejala' => $pertanyaan->id_gejala,
             ]);
         }
@@ -81,18 +83,22 @@ class PertanyaanController extends Controller
         // Hapus record
         Pertanyaan::destroy($id);
 
-        // Reset penomoran AUTO_INCREMENT / sequence
         $model = new Pertanyaan;
         $table = $model->getTable();
         $key   = $model->getKeyName();
 
         if (DB::getDriverName() === 'mysql') {
-            // ambil nilai max(id) lalu set AUTO_INCREMENT ke max+1
-            $max = DB::table($table)->max($key) ?? 0;
-            DB::statement("ALTER TABLE `{$table}` AUTO_INCREMENT = " . ($max + 1));
+            $count = DB::table($table)->count();
+            if ($count === 0) {
+                // Jika tidak ada data sama sekali, set ulang ke 1
+                DB::statement("ALTER TABLE `{$table}` AUTO_INCREMENT = 1");
+            } else {
+                // Jika masih ada data, set ke nilai max + 1
+                $max = DB::table($table)->max($key) ?? 0;
+                DB::statement("ALTER TABLE `{$table}` AUTO_INCREMENT = " . ($max + 1));
+            }
         }
         elseif (DB::getDriverName() === 'sqlite') {
-            // reset sqlite_sequence agar rowid kembali rapat
             DB::statement("DELETE FROM sqlite_sequence WHERE name = ?", [$table]);
         }
 
@@ -100,6 +106,7 @@ class PertanyaanController extends Controller
             ->route('admin.pertanyaan.index')
             ->with('success', 'Pertanyaan berhasil dihapus, dan penomoran ID telah di‐reset.');
     }
+
 
      public function indexPakar()
     {

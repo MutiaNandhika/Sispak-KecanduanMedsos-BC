@@ -74,9 +74,15 @@
     <div class="main-wrapper">
         <!-- Header -->
         <header class="topbar">
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+
             <div class="user-info">
-                <strong>Naruto Uzumaki</strong><br>
-                <small>Admin</small>
+                <a href="{{ route('pakar.profil.index') }}" style="text-decoration: none; color: inherit;">
+                    <strong>{{ Auth::user()->nama }}</strong><br>
+                    <small>{{ Auth::user()->role }}</small>
+                </a>
             </div>
         </header>
 
