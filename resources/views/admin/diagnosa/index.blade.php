@@ -3,6 +3,11 @@
 @section('title', 'Data Diagnosa')
 
 @push('styles')
+<!-- DataTables Core CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+<!-- DataTables Buttons CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<!-- Custom CSS -->
 <link rel="stylesheet" href="{{ asset('css/admin/diagnosa.css') }}">
 @endpush
 
@@ -15,13 +20,13 @@
     </div>
 
     <div class="table-wrapper">
-        <table class="diagnosa-table">
+        <table class="diagnosa-table" id="example1">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Diagnosa</th>
                     <th>Deskripsi</th>
-                    <th>Status Verifikasi</th> {{-- Kolom baru --}}
+                    <th>Status</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -53,7 +58,33 @@
 @endsection
 
 @push('scripts')
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
+    $(document).ready(function () {
+        const table = $("#example1").DataTable({
+            responsive: true,
+            lengthChange: false,
+            autoWidth: false,
+            ordering: true,
+            pageLength: 5,
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            columnDefs: [
+                { orderable: false, targets: -1 }
+            ]
+        });
+
+        table.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+
     document.addEventListener('DOMContentLoaded', function () {
         const forms = document.querySelectorAll('.form-hapus');
         forms.forEach(form => {
@@ -76,4 +107,16 @@
         });
     });
 </script>
+
+@if (session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: '{{ session('success') }}',
+        showConfirmButton: false,
+        timer: 4000
+    });
+</script>
+@endif
 @endpush
