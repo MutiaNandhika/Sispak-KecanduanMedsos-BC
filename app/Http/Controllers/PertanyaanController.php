@@ -79,34 +79,33 @@ class PertanyaanController extends Controller
     }
 
     public function destroy($id)
-    {
-        // Hapus record
-        Pertanyaan::destroy($id);
+{
+    // Hapus record berdasarkan ID
+    Pertanyaan::destroy($id);
 
-        $model = new Pertanyaan;
-        $table = $model->getTable();
-        $key   = $model->getKeyName();
+    // Ambil nama tabel dan key
+    $model = new Pertanyaan;
+    $table = $model->getTable();
+    $key   = $model->getKeyName();
 
-        if (DB::getDriverName() === 'mysql') {
-            $count = DB::table($table)->count();
-            if ($count === 0) {
-                // Jika tidak ada data sama sekali, set ulang ke 1
-                DB::statement("ALTER TABLE `{$table}` AUTO_INCREMENT = 1");
-            } else {
-                // Jika masih ada data, set ke nilai max + 1
-                $max = DB::table($table)->max($key) ?? 0;
-                DB::statement("ALTER TABLE `{$table}` AUTO_INCREMENT = " . ($max + 1));
-            }
+    $count = DB::table($table)->count();
+
+    if (DB::getDriverName() === 'mysql') {
+        // Jika semua data sudah dihapus, reset AUTO_INCREMENT ke 1
+        if ($count === 0) {
+            DB::statement("ALTER TABLE `{$table}` AUTO_INCREMENT = 1");
         }
-        elseif (DB::getDriverName() === 'sqlite') {
+        // Jika masih ada data, biarkan ID lanjut normal
+    } elseif (DB::getDriverName() === 'sqlite') {
+        if ($count === 0) {
             DB::statement("DELETE FROM sqlite_sequence WHERE name = ?", [$table]);
         }
-
-        return redirect()
-            ->route('admin.pertanyaan.index')
-            ->with('success', 'Pertanyaan berhasil dihapus, dan penomoran ID telah di‐reset.');
     }
 
+    return redirect()
+        ->route('admin.pertanyaan.index')
+        ->with('success', 'Pertanyaan berhasil dihapus.');
+}
 
      public function indexPakar()
     {
@@ -133,14 +132,35 @@ class PertanyaanController extends Controller
         return redirect()->back()->with('success', 'Status pertanyaan berhasil diperbarui.');
     }   
 
-    // Menampilkan Pertanyaan di User
     public function tampilPertanyaan()
-    {
-        $pertanyaans = Pertanyaan::where('status_verifikasi', 'diterima')->with('gejala')->get();
+{
+    $diagnosaTerakhir = session('diagnosa_terakhir');
 
-        $diagnosaIds = AturanGejala::pluck('id_diagnosa')->unique();
-        $diagnosas = Diagnosa::whereIn('id_diagnosa', $diagnosaIds)->get();
+    $diagnosaSelanjutnya = Diagnosa::where('status_verifikasi', 'diterima')
+        ->when($diagnosaTerakhir, function ($query) use ($diagnosaTerakhir) {
+            return $query->where('id_diagnosa', '>', $diagnosaTerakhir);
+        })
+        ->orderBy('id_diagnosa')
+        ->first();
 
-        return view('user.pertanyaan', compact('pertanyaans', 'diagnosas'));
+    if (!$diagnosaSelanjutnya) {
+        return view('user.selesai'); // halaman selesai jika tidak ada diagnosa lagi
     }
+
+    $idDiagnosa = $diagnosaSelanjutnya->id_diagnosa;
+
+    $gejalaIds = AturanGejala::where('id_diagnosa', $idDiagnosa)->pluck('id_gejala');
+
+    $pertanyaans = Pertanyaan::whereIn('id_gejala', $gejalaIds)
+        ->where('status_verifikasi', 'diterima')
+        ->with('gejala')
+        ->get();
+
+    return view('user.pertanyaan', [
+        'pertanyaans' => $pertanyaans,
+        'diagnosa' => $diagnosaSelanjutnya, // ← inilah variabel yang dipakai di view
+    ]);
+}
+
+
 }

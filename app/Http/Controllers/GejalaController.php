@@ -58,27 +58,32 @@ class GejalaController extends Controller
 
 
     public function destroy($id_gejala)
-    {
-        // Hapus record
-        Gejala::destroy($id_gejala);
+{
+    // Hapus satu data gejala
+    Gejala::destroy($id_gejala);
 
-        // Reset penomoran AUTO_INCREMENT / sequence
-        $table = (new Gejala)->getTable();
+    // Cek apakah data gejala sudah kosong total
+    $remaining = Gejala::count();
 
-        // Untuk MySQL / MariaDB
+    // Jika kosong, reset ID agar mulai dari 1 kembali
+    if ($remaining === 0) {
+        // Untuk MySQL
         if (DB::getDriverName() === 'mysql') {
-            $max = DB::table($table)->max((new Gejala)->getKeyName()) ?? 0;
-            DB::statement("ALTER TABLE `{$table}` AUTO_INCREMENT = " . ($max + 1));
+            DB::statement("ALTER TABLE gejala AUTO_INCREMENT = 1");
         }
         // Untuk SQLite
         elseif (DB::getDriverName() === 'sqlite') {
-            DB::statement("DELETE FROM sqlite_sequence WHERE name = ?", [$table]);
+            DB::statement("DELETE FROM sqlite_sequence WHERE name = 'gejala'");
         }
-
-        return redirect()
-            ->route('admin.gejala.index')
-            ->with('success', 'Gejala berhasil dihapus, dan penomoran ID telah di‐reset.');
+        // Jika ingin tambah PostgreSQL, tinggal sesuaikan
     }
+
+    return redirect()
+        ->route('admin.gejala.index')
+        ->with('success', 'Gejala berhasil dihapus.');
+}
+
+
 
     public function indexPakar()
     {

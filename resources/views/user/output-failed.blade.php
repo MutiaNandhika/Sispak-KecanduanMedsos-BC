@@ -14,7 +14,9 @@
     <img src="{{ asset('images/notification-bell.png') }}" alt="Notifikasi">
     </div>
 
-    <h2>Hasil Diagnosa Anda Bukan di Tingkat “Tidak Kecanduan” </h2>
+    <h2>Anda belum memenuhi kriteria untuk tingkat 
+        "{{ $diagnosa->nama_diagnosa ?? 'Tidak Diketahui' }}"
+    </h2>
     <a href="{{ url('/pertanyaan') }}" class="btn">Lanjutkan Tes</a>
 
     

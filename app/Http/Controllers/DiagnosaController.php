@@ -9,6 +9,7 @@ use App\Models\AturanGejala;
 use App\Models\HasilDiagnosa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;    // ← keep this façade import
+use App\Models\HasilGejala;
 
 class DiagnosaController extends Controller
 {
@@ -87,93 +88,109 @@ class DiagnosaController extends Controller
         return view('pakar.diagnosa', compact('diagnosas'));
     }
 
-    public function destroy($id)
+        public function destroy($id)
     {
-        // Hapus record
+        // Hapus diagnosa
         Diagnosa::destroy($id);
 
-        // Reset penomoran AUTO_INCREMENT / sequence
-        $table = (new Diagnosa)->getTable();
+        // Ambil semua data diagnosa yang tersisa, urutkan dari yang terkecil
+        $diagnosas = Diagnosa::orderBy('id_diagnosa')->get();
 
-        // Untuk MySQL / MariaDB
+        // Reset ID secara manual
+        $newId = 1;
+        foreach ($diagnosas as $diagnosa) {
+            // Update ID satu per satu
+            DB::table('diagnosa')->where('id_diagnosa', $diagnosa->id_diagnosa)->update(['id_diagnosa' => $newId]);
+            $newId++;
+        }
+
+        // Reset auto increment (jika pakai MySQL)
+        $table = (new Diagnosa)->getTable();
         if (DB::getDriverName() === 'mysql') {
-            // Set next AUTO_INCREMENT ke 1, atau jika masih ada data, ke max(id)+1
-            $max = DB::table($table)->max((new Diagnosa)->getKeyName()) ?? 0;
-            DB::statement("ALTER TABLE `{$table}` AUTO_INCREMENT = " . ($max + 1));
+            DB::statement("ALTER TABLE `{$table}` AUTO_INCREMENT = {$newId}");
         }
-        // Untuk SQLite
-        elseif (DB::getDriverName() === 'sqlite') {
-            DB::statement("DELETE FROM sqlite_sequence WHERE name = ?", [$table]);
-        }
-        // (Anda bisa tambahkan driver lain seperti PostgreSQL jika perlu)
 
         return redirect()
             ->route('admin.diagnosa.index')
-            ->with('success', 'Diagnosa berhasil dihapus, dan penomoran ID telah di‐reset.');
+            ->with('success', 'Diagnosa berhasil dihapus dan ID disusun ulang.');
     }
 
-    //Diagnosa User
-   public function prosesDiagnosa(Request $request)
-    {
-        $jawabanYa = [];
+public function prosesDiagnosa(Request $request)
+{
+    $jawabanYa = [];
 
-        foreach ($request->except('_token') as $key => $jawaban) {
-            $idPertanyaan = str_replace('q', '', $key);
-            $pertanyaan = Pertanyaan::find($idPertanyaan);
+    foreach ($request->except('_token') as $key => $jawaban) {
+        $idPertanyaan = str_replace('q', '', $key);
+        $pertanyaan = Pertanyaan::find($idPertanyaan);
 
-            if (!$pertanyaan) continue;
+        if (!$pertanyaan) continue;
 
-            Jawaban::create([
-                'id_user' => Auth::id(),
-                'id_pertanyaan' => $idPertanyaan,
-                'jawaban' => $jawaban,
+        Jawaban::create([
+            'id_user' => Auth::id(),
+            'id_pertanyaan' => $idPertanyaan,
+            'jawaban' => $jawaban,
+        ]);
+
+        if ($jawaban === 'ya') {
+            $jawabanYa[] = $pertanyaan->id_gejala;
+        }
+    }
+
+    // Ambil diagnosa berikutnya berdasarkan sesi terakhir
+    $diagnosaTerakhir = session('diagnosa_terakhir');
+    $diagnosaSelanjutnya = Diagnosa::where('status_verifikasi', 'diterima')
+        ->when($diagnosaTerakhir, function ($query) use ($diagnosaTerakhir) {
+            return $query->where('id_diagnosa', '>', $diagnosaTerakhir);
+        })
+        ->orderBy('id_diagnosa')
+        ->first();
+
+    if (!$diagnosaSelanjutnya) {
+        return view('user.selesai');
+    }
+
+    // simpan diagnosa terakhir lebih awal
+    session(['diagnosa_terakhir' => $diagnosaSelanjutnya->id_diagnosa]);
+
+    // Ambil gejala untuk diagnosa ini
+    $gejalaDiagnosa = AturanGejala::where('id_diagnosa', $diagnosaSelanjutnya->id_diagnosa)
+        ->pluck('id_gejala')
+        ->toArray();
+
+    $jumlahCocok = count(array_intersect($gejalaDiagnosa, $jawabanYa));
+
+    // Jika cocok minimal 3 gejala
+    if ($jumlahCocok >= 3) {
+        // Simpan ke hasil diagnosa
+        $hasil = HasilDiagnosa::create([
+            'id_user' => Auth::id(),
+            'id_diagnosa' => $diagnosaSelanjutnya->id_diagnosa,
+        ]);
+
+        // Simpan ke hasil gejala
+        foreach ($jawabanYa as $idGejala) {
+            HasilGejala::create([
+                'id_hasil' => $hasil->id_hasil,
+                'id_gejala' => $idGejala,
             ]);
-
-            if ($jawaban === 'ya') {
-                $jawabanYa[] = $pertanyaan->id_gejala;
-            }
         }
 
-        // Jika belum memenuhi syarat minimum 3 jawaban "ya"
-        if (count($jawabanYa) < 3) {
-            return redirect('/output-failed');
-        }
+        // Reset diagnosa terakhir agar bisa mulai dari awal lagi kalau ulangi
+        session()->forget('diagnosa_terakhir');
 
-        $diagnosaLayak = [];
-
-        $semuaDiagnosa = Diagnosa::where('status_verifikasi', 'diterima')->get();
-
-        foreach ($semuaDiagnosa as $diagnosa) {
-            $gejalaDiagnosa = AturanGejala::where('id_diagnosa', $diagnosa->id_diagnosa)
-                ->pluck('id_gejala')
-                ->toArray();
-
-            $jumlahCocok = count(array_intersect($gejalaDiagnosa, $jawabanYa));
-
-            if ($jumlahCocok >= 3) {
-                HasilDiagnosa::create([
-                    'id_user' => Auth::id(),
-                    'id_diagnosa' => $diagnosa->id_diagnosa,
-                ]);
-
-                $diagnosaLayak[] = [
-                    'diagnosa' => $diagnosa,
-                    'jumlah_cocok' => $jumlahCocok
-                ];
-            }
-        }
-
-        // Jika tidak ada diagnosa yang cocok
-        if (empty($diagnosaLayak)) {
-            return view('user.output-not-detected');
-        }
-
-        // Jika ada diagnosa yang cocok
         return view('user.output-tingkatan', [
-            'diagnosas' => $diagnosaLayak,
+            'diagnosas' => [[
+                'diagnosa' => $diagnosaSelanjutnya,
+                'jumlah_cocok' => $jumlahCocok
+            ]],
             'jumlahYa' => count($jawabanYa),
         ]);
     }
+
+    // Jika tidak cocok, lanjut ke pertanyaan diagnosa berikutnya
+    return redirect()->route('user.output-failed');
+}
+
 
 }
 

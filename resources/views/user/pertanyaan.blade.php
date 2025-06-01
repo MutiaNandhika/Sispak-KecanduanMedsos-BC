@@ -10,13 +10,11 @@
 @section('content')
 <div class="pertanyaan-container">
     <div class="pertanyaan-header">
-        @php
-            $judulDiagnosa = $diagnosas->pluck('nama_diagnosa')->implode(', ');
-        @endphp
-        <h3>Kuesioner {{ $judulDiagnosa }}</h3>
+        <h3>Kuesioner {{ $diagnosa->nama_diagnosa }}</h3>   
     </div>
 
     <form action="{{ url('/output-tingkatan') }}" method="POST">
+        <input type="hidden" name="id_diagnosa" value="{{ $diagnosa->id_diagnosa }}">
         @csrf
 
         @forelse ($pertanyaans as $index => $pertanyaan)

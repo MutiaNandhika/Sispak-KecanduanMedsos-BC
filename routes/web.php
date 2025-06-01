@@ -12,6 +12,8 @@ use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HasilDiagnosaController;
 use App\Http\Controllers\HasilGejalaController;
+use App\Models\Diagnosa;
+
 use App\Models\Pertanyaan;
 
 // Welcome Page
@@ -134,9 +136,14 @@ Route::middleware(\App\Http\Middleware\RoleMiddleware::class . ':user')->group(f
     Route::get('/pertanyaan', [PertanyaanController::class, 'tampilPertanyaan'])->name('pertanyaan.user');
     Route::post('/output-tingkatan', [DiagnosaController::class, 'prosesDiagnosa'])->name('pertanyaan.proses');
     Route::view('/output-tingkatan', 'user.output-tingkatan')->name('user.output-tingkatan-view');
-    Route::view('/output-failed', 'user.output-failed')->name('user.output-failed');
-    Route::view('/output-not-detected', 'user.output-not-detected')->name('user.output-not-detected');
+    Route::get('/output-failed', function () {
+            $diagnosaId = session('diagnosa_terakhir');
+            $diagnosa = Diagnosa::find($diagnosaId);
 
+            return view('user.output-failed', compact('diagnosa'));
+        })->name('user.output-failed');
+    Route::view('/output-not-detected', 'user.output-not-detected')->name('user.output-not-detected');
+    
     Route::view('/profil', 'user.profil')->name('user.profil');
 });
 

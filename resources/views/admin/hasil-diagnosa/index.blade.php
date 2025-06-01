@@ -3,10 +3,8 @@
 @section('title', 'Data Hasil Diagnosa')
 
 @push('styles')
-<!-- DataTables Core CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
-<!-- Custom CSS -->
 <link rel="stylesheet" href="{{ asset('css/admin/hasil-diagnosa.css') }}">
 @endpush
 
@@ -19,25 +17,25 @@
             <thead>
                 <tr>
                     <th>ID Hasil</th>
-                    <th>ID Diagnosa</th>
-                    <th>ID User</th>
+                    <th>Nama Diagnosa</th>
+                    <th>Email User</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($hasils as $hasil)
-                <tr>
-                    <td>{{ $hasil->id_hasil }}</td>
-                    <td>{{ $hasil->id_diagnosa }}</td>
-                    <td>{{ $hasil->id_user }}</td>
-                    <td class="action-icons">
-                        <form class="form-hapus" action="{{ route('admin.hasil.destroy', $hasil->id_hasil) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" class="delete-icon" title="Hapus" style="background:none;border:none;cursor:pointer;">🗑️</button>
-                        </form>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{ $hasil->id_hasil }}</td>
+                        <td>{{ $hasil->diagnosa->nama_diagnosa ?? 'Diagnosa tidak ditemukan' }}</td>
+                        <td>{{ $hasil->user->email ?? '-' }}</td>
+                        <td class="action-icons">
+                            <form class="form-hapus" action="{{ route('admin.hasil.destroy', $hasil->id_hasil) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="delete-icon" title="Hapus" style="background:none;border:none;cursor:pointer;">🗑️</button>
+                            </form>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>

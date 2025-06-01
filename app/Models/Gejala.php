@@ -17,4 +17,10 @@ class Gejala extends Model
     {
         return $this->hasMany(Pertanyaan::class, 'id_gejala', 'id_gejala');
     }
+
+    public function aturanGejala()
+    {
+        return $this->hasMany(AturanGejala::class, 'id_gejala', 'id_gejala');
+    }
+
 }

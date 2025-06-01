@@ -62,29 +62,33 @@ class SolusiController extends Controller
     }
 
     public function destroy($id)
-    {
-        // Hapus record
-        Solusi::destroy($id);
+{
+    // Hapus satu record Solusi
+    Solusi::destroy($id);
 
-        // Reset penomoran AUTO_INCREMENT / sequence
-        $model = new Solusi;
-        $table = $model->getTable();
-        $key   = $model->getKeyName();
+    // Dapatkan nama tabel
+    $table = (new Solusi)->getTable();
+    $key   = (new Solusi)->getKeyName();
 
-        if (DB::getDriverName() === 'mysql') {
-            // ambil nilai max(id) lalu set AUTO_INCREMENT ke max+1
-            $max = DB::table($table)->max($key) ?? 0;
-            DB::statement("ALTER TABLE `{$table}` AUTO_INCREMENT = " . ($max + 1));
+    // Hitung sisa data
+    $count = DB::table($table)->count();
+
+    // Reset AUTO_INCREMENT jika semua data terhapus
+    if (DB::getDriverName() === 'mysql') {
+        if ($count === 0) {
+            DB::statement("ALTER TABLE `{$table}` AUTO_INCREMENT = 1");
         }
-        elseif (DB::getDriverName() === 'sqlite') {
-            // reset sqlite_sequence agar rowid kembali rapat
+    } elseif (DB::getDriverName() === 'sqlite') {
+        if ($count === 0) {
             DB::statement("DELETE FROM sqlite_sequence WHERE name = ?", [$table]);
         }
-
-        return redirect()
-            ->route('admin.solusi.index')
-            ->with('success', 'Solusi berhasil dihapus, dan penomoran ID telah di‐reset.');
     }
+
+    return redirect()
+        ->route('admin.solusi.index')
+        ->with('success', 'Solusi berhasil dihapus.');
+}
+
 
     public function indexPakar()
     {

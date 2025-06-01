@@ -6,7 +6,6 @@
 <!-- DataTables Core CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
-<!-- Custom CSS -->
 <link rel="stylesheet" href="{{ asset('css/admin/hasil-gejala.css') }}">
 @endpush
 
@@ -20,26 +19,24 @@
                 <tr>
                     <th>ID Hasil Gejala</th>
                     <th>ID Hasil</th>
-                    <th>ID Gejala</th>
-                    <th>Aksi</th>
+                    <th>Email User</th>
+                    <th>Diagnosa</th>
+                    <th>Gejala</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($hasils as $hasil)
                 <tr>
-                    <td>{{ $hasil->id_hasil_gejala }}</td>
-                    <td>{{ $hasil->id_hasil }}</td>
-                    <td>{{ $hasil->id_gejala }}</td>
-                    <td class="action-icons">
-                        <form 
-                            class="form-hapus" 
-                            action="{{ route('admin.hasilgejala.destroy', $hasil->id_hasil_gejala) }}" 
-                            method="POST" 
-                            style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" class="delete-icon" title="Hapus" style="background:none;border:none;cursor:pointer;">🗑️</button>
-                        </form>
+                    <td>{{ $hasil['id_hasil_gejala'] }}</td>
+                    <td>{{ $hasil['id_hasil'] }}</td>
+                    <td>{{ $hasil['email_user'] }}</td>
+                    <td>{{ $hasil['nama_diagnosa'] }}</td>
+                    <td>
+                        <ul style="padding-left: 18px; margin: 0; text-align: left;">
+                            @foreach (explode(', ', $hasil['gejalas']) as $item)
+                                <li>{{ $item }}</li>
+                            @endforeach
+                        </ul>
                     </td>
                 </tr>
                 @endforeach
@@ -48,6 +45,7 @@
     </div>
 </div>
 @endsection
+
 
 @push('scripts')
 <!-- DataTables Scripts -->

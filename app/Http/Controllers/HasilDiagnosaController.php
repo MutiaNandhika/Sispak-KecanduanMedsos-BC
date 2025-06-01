@@ -9,9 +9,15 @@ class HasilDiagnosaController extends Controller
 {
     public function index()
     {
-        $hasils = HasilDiagnosa::with(['diagnosa', 'user'])->get();
+        $hasils = HasilDiagnosa::with(['diagnosa', 'user'])
+            ->whereHas('user', function ($query) {
+                $query->where('role', 'user');
+            })
+            ->get();
+
         return view('admin.hasil-diagnosa.index', compact('hasils'));
     }
+
 
     public function destroy($id)
     {

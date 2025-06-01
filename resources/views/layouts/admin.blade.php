@@ -83,6 +83,8 @@
                     <strong>{{ Auth::user()->nama }}</strong><br>
                     <small>{{ Auth::user()->role }}</small>
                 </a>
+            </div><div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
             </div>
         </header>
 
