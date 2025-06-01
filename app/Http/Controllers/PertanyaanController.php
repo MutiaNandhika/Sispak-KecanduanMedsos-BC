@@ -144,7 +144,8 @@ class PertanyaanController extends Controller
         ->first();
 
     if (!$diagnosaSelanjutnya) {
-        return view('user.selesai'); // halaman selesai jika tidak ada diagnosa lagi
+        // Ganti halaman selesai dengan halaman 'tidak terdeteksi'
+        return view('user.output-not-detected');
     }
 
     $idDiagnosa = $diagnosaSelanjutnya->id_diagnosa;
@@ -158,9 +159,10 @@ class PertanyaanController extends Controller
 
     return view('user.pertanyaan', [
         'pertanyaans' => $pertanyaans,
-        'diagnosa' => $diagnosaSelanjutnya, // ← inilah variabel yang dipakai di view
+        'diagnosa' => $diagnosaSelanjutnya,
     ]);
 }
+
 
 
 }

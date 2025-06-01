@@ -145,29 +145,32 @@ public function prosesDiagnosa(Request $request)
         ->orderBy('id_diagnosa')
         ->first();
 
+    // Jika tidak ada diagnosa tersisa, arahkan ke halaman tidak terdeteksi
     if (!$diagnosaSelanjutnya) {
-        return view('user.selesai');
+        session()->forget('diagnosa_terakhir');
+        return view('user.output-not-detected');
     }
 
-    // simpan diagnosa terakhir lebih awal
+    // Simpan diagnosa terakhir agar bisa lanjut ke diagnosa berikutnya
     session(['diagnosa_terakhir' => $diagnosaSelanjutnya->id_diagnosa]);
 
-    // Ambil gejala untuk diagnosa ini
+    // Ambil daftar gejala yang terkait dengan diagnosa ini
     $gejalaDiagnosa = AturanGejala::where('id_diagnosa', $diagnosaSelanjutnya->id_diagnosa)
         ->pluck('id_gejala')
         ->toArray();
 
+    // Hitung berapa banyak gejala yang cocok (jawaban "ya")
     $jumlahCocok = count(array_intersect($gejalaDiagnosa, $jawabanYa));
 
-    // Jika cocok minimal 3 gejala
+    // Jika jumlah gejala cocok >= 3, berarti diagnosa ini cocok
     if ($jumlahCocok >= 3) {
-        // Simpan ke hasil diagnosa
+        // Simpan hasil diagnosa
         $hasil = HasilDiagnosa::create([
             'id_user' => Auth::id(),
             'id_diagnosa' => $diagnosaSelanjutnya->id_diagnosa,
         ]);
 
-        // Simpan ke hasil gejala
+        // Simpan gejala-gejala yang sesuai
         foreach ($jawabanYa as $idGejala) {
             HasilGejala::create([
                 'id_hasil' => $hasil->id_hasil,
@@ -175,7 +178,7 @@ public function prosesDiagnosa(Request $request)
             ]);
         }
 
-        // Reset diagnosa terakhir agar bisa mulai dari awal lagi kalau ulangi
+        // Reset sesi diagnosa terakhir untuk bisa mulai ulang jika perlu
         session()->forget('diagnosa_terakhir');
 
         return view('user.output-tingkatan', [
@@ -187,8 +190,8 @@ public function prosesDiagnosa(Request $request)
         ]);
     }
 
-    // Jika tidak cocok, lanjut ke pertanyaan diagnosa berikutnya
-    return redirect()->route('user.output-failed');
+    // Jika belum memenuhi, lanjut ke diagnosa berikutnya
+    return redirect()->route('user.proses-diagnosa');
 }
 
 

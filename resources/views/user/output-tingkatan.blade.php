@@ -27,7 +27,11 @@
             @endphp
 
             @forelse ($solusiDiterima as $solusi)
-                <div class="saran-box">{{ $solusi->solusi_diagnosa }}</div>
+                @foreach (preg_split('/\r\n|\r|\n/', $solusi->solusi_diagnosa) as $point)
+                    @if (trim($point) !== '')
+                        <div class="saran-box">{{ ltrim($point, '- ') }}</div>
+                    @endif
+                @endforeach
             @empty
                 <div class="saran-box">Belum ada solusi yang diverifikasi pakar untuk diagnosa ini.</div>
             @endforelse
@@ -37,6 +41,7 @@
             </div>
             <div class="saran-box">Kamu tidak menunjukkan gejala yang cukup untuk didiagnosis.</div>
         @endforelse
+
     </div>
 
 </div>
