@@ -27,7 +27,7 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 
 // Logout
-Route::get('/logout', function () {
+Route::post('/logout', function () {
     Auth::logout();
     return redirect('/login');
 })->name('logout')->middleware('auth');

@@ -15,7 +15,7 @@
       <span>👤 Profil</span>
       <div class="dropdown-menu" id="dropdownMenu" aria-labelledby="userDropdown">
         <a href="/profil">Profil Saya</a>
-        <a href="/logout" class="text-danger" onclick="return confirm('Yakin ingin logout?')">Logout</a>
+        <a href="javascript:void(0);" class="text-danger" onclick="confirmLogout()">Logout</a>
       </div>
     </li>
     @else
@@ -23,6 +23,10 @@
     @endif
   </ul>
 </nav>
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>
 
 <script>
   const userDropdown = document.getElementById('userDropdown');
@@ -43,3 +47,24 @@
     });
   }
 </script>
+
+@push('scripts')
+<script>
+  function confirmLogout() {
+    Swal.fire({
+      title: 'Yakin ingin logout?',
+      text: "Anda akan keluar dari sesi login.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Ya, logout',
+      cancelButtonText: 'Batal'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.getElementById('logout-form').submit();
+      }
+    });
+  }
+</script>
+@endpush
