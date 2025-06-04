@@ -143,7 +143,11 @@ Route::middleware(\App\Http\Middleware\RoleMiddleware::class . ':user')->group(f
             return view('user.output-failed', compact('diagnosa'));
         })->name('user.output-failed');
     Route::view('/output-not-detected', 'user.output-not-detected')->name('user.output-not-detected');
-    
+    Route::get('/ulangi-tes', function () {
+    session()->forget('diagnosa_terakhir');
+    return redirect()->route('pertanyaan.user');
+})->name('user.ulangi-tes');
+
     Route::view('/profil', 'user.profil')->name('user.profil');
 });
 

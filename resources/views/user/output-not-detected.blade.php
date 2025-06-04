@@ -15,8 +15,7 @@
     </div>
 
     <h2>Hasil Diagnosa Anda Tidak Dapat Didefinisikan </h2>
-    <a href="{{ url('/pertanyaan') }}" class="btn">Ulangi Tes</a>
-
+    <a href="{{ route('user.ulangi-tes') }}" class="btn">Ulangi Tes</a>
     
 </div>
 @endsection

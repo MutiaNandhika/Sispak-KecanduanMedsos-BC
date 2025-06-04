@@ -8,7 +8,7 @@ use App\Models\Jawaban;
 use App\Models\AturanGejala;
 use App\Models\HasilDiagnosa;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;    // ← keep this façade import
+use Illuminate\Support\Facades\DB;   
 use App\Models\HasilGejala;
 
 class DiagnosaController extends Controller
@@ -191,7 +191,7 @@ public function prosesDiagnosa(Request $request)
     }
 
     // Jika belum memenuhi, lanjut ke diagnosa berikutnya
-    return redirect()->route('user.proses-diagnosa');
+    return redirect()->route('user.output-failed');
 }
 
 
