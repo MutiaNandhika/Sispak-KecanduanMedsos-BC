@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AturanController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -115,6 +116,10 @@ Route::prefix('pakar')->middleware(\App\Http\Middleware\RoleMiddleware::class . 
     // Pertanyaan routes - add pakar prefix to route name
     Route::get('/pertanyaan', [PertanyaanController::class, 'indexPakar'])->name('pakar.pertanyaan.index');
     Route::put('/pertanyaan/{id_pertanyaan}/verify', [PertanyaanController::class, 'verify'])->name('pakar.pertanyaan.verify');
+
+    Route::get('/aturan', [AturanController::class, 'index'])->name('pakar.aturan.index');
+    Route::post('/aturan', [AturanController::class, 'store'])->name('pakar.aturan.store');
+    Route::delete('/aturan/{id}', [AturanController::class, 'destroy'])->name('pakar.aturan.destroy');
     
     // Pengguna routes - add pakar prefix to route name
     // Route::get('/pengguna', function() {
