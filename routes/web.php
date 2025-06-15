@@ -153,12 +153,16 @@ Route::prefix('pakar')->middleware(['auth', \App\Http\Middleware\RoleMiddleware:
 
     Route::get('/pertanyaan', [PertanyaanController::class, 'indexPakar'])->name('pakar.pertanyaan.index');
     Route::put('/pertanyaan/{id_pertanyaan}/verify', [PertanyaanController::class, 'verify'])->name('pakar.pertanyaan.verify');
-
     Route::get('/aturan', [AturanController::class, 'index'])->name('pakar.aturan.index');
     Route::post('/aturan', [AturanController::class, 'store'])->name('pakar.aturan.store');
     Route::delete('/aturan/{id}', [AturanController::class, 'destroy'])->name('pakar.aturan.destroy');
-
-    Route::get('/profil', function () {
+    // Pengguna routes - add pakar prefix to route name
+    // Route::get('/pengguna', function() {
+    //     return view('pakar.pengguna');
+    // })->name('pakar.pengguna.index');
+    
+    // Profil route - add pakar prefix to route name
+    Route::get('/profil', function() {
         return view('pakar.profil');
     })->name('pakar.profil.index');
 });

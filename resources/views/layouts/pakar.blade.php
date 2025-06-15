@@ -55,8 +55,14 @@
                     <span>❓</span> 
                     <p>Pertanyaan</p>
                 </a>
-            {{-- </li>
-            <li class="{{ request()->is('pakar/pengguna*') ? 'active' : '' }}">
+            </li>
+            <li class="{{ request()->is('pakar/aturan*') ? 'active' : '' }}">
+                <a href="{{ route('pakar.aturan.index') }}">
+                    <span>🔗</span> 
+                    <p>Aturan</p>
+                </a>
+            </li>
+            {{-- <li class="{{ request()->is('pakar/pengguna*') ? 'active' : '' }}">
                 <a href="{{ route('pakar.pengguna.index') }}">
                     <span>👤</span> 
                     <p>Pengguna</p>
