@@ -20,13 +20,14 @@
     </div>
 
     <div class="table-wrapper">
-        <table class="diagnosa-table" id="example1">
+        <table class="diagnosa-table" id="example1" style="width:100%"> 
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Diagnosa</th>
                     <th>Deskripsi</th>
                     <th>Status</th>
+                    <th>Catatan Pakar</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -41,6 +42,7 @@
                             {{ ucfirst($diagnosa->status_verifikasi) }}
                         </span>
                     </td>
+                    <td>{{ $diagnosa->catatan_pakar }}</td>
                     <td class="action-icons">
                         <a href="{{ route('admin.diagnosa.edit', $diagnosa->id_diagnosa) }}" class="edit-icon">✏️</a>
                         <form class="form-hapus" action="{{ route('admin.diagnosa.destroy', $diagnosa->id_diagnosa) }}" method="POST" style="display: inline;">

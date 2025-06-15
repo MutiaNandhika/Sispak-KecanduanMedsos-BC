@@ -55,7 +55,7 @@ body {
     border-collapse: collapse;
     background-color: #fff;
     font-size: 0.95rem;
-    table-layout: fixed;
+    table-layout: auto;
 }
 
 .pertanyaan-table thead tr {

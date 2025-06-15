@@ -24,6 +24,7 @@
                     <th>Gejala</th>
                     <th>Pertanyaan</th>
                     <th>Status</th>
+                    <th>Catatan Pakar</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -38,6 +39,7 @@
                             {{ ucfirst($pertanyaan->status_verifikasi) }}
                         </span>
                     </td>
+                    <td>{{ $pertanyaan->catatan_pakar }}</td>
                     <td class="action-icons">
                         <a href="{{ route('admin.pertanyaan.edit', $pertanyaan->id_pertanyaan) }}" class="edit-icon" title="Edit">✏️</a>
                         <form class="form-hapus" action="{{ route('admin.pertanyaan.destroy', $pertanyaan->id_pertanyaan) }}" method="POST" style="display: inline;">

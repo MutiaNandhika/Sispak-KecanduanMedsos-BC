@@ -55,7 +55,7 @@ body {
     border-collapse: collapse;
     background-color: #fff;
     font-size: 0.95rem;
-    table-layout: fixed;
+    table-layout: auto;
 }
 
 .diagnosa-table thead tr {
@@ -84,7 +84,7 @@ body {
 
 .diagnosa-table th:nth-child(2),
 .diagnosa-table td:nth-child(2) {
-    width: 20%;
+    width: 15%;
 }
 
 .diagnosa-table th:nth-child(3),
@@ -94,13 +94,18 @@ body {
 
 .diagnosa-table th:nth-child(4),
 .diagnosa-table td:nth-child(4) {
-    width: 15%;
+    width: 10%;
     text-align: center;
 }
 
 .diagnosa-table th:nth-child(5),
 .diagnosa-table td:nth-child(5) {
-    width: 17%;
+    width: 14%;
+    text-align: center;
+}
+.diagnosa-table th:nth-child(6),
+.diagnosa-table td:nth-child(6) {
+    width: 13%;
     text-align: center;
 }
 

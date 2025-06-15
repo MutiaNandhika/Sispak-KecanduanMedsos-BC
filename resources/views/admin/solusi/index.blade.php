@@ -27,7 +27,7 @@
                     <th>Diagnosa</th>
                     <th>Solusi</th>
                     <th>Status</th>
-                    <th>Catatan</th>
+                    <th>Catatan Pakar</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
