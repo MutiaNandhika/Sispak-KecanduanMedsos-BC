@@ -176,7 +176,7 @@ Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class . ':user']
         return view('user.diagnosa');
     })->name('user.diagnosa');
 
-    Route::middleware(['throttle:10,1'])->group(function () {
+    Route::middleware(['throttle:30,1'])->group(function () {
         Route::get('/pertanyaan', [PertanyaanController::class, 'tampilPertanyaan'])->name('pertanyaan.user');
         Route::post('/output-tingkatan', [DiagnosaController::class, 'prosesDiagnosa'])->name('pertanyaan.proses');
 
