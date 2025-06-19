@@ -1,4 +1,6 @@
-# ![Logo SosmedCare](public/images/logo.png) **SosmedCare** 🧠📱
+# ![Logo SosmedCare](public/images/logo.png) 
+
+**SosmedCare** 🧠📱
 
 **SosmedCare** adalah sebuah website berbasis **Sistem Pakar** yang dirancang untuk membantu pengguna mengetahui **tingkat kecanduan mereka terhadap media sosial**.  
 Dengan pendekatan berbasis gejala, pengguna akan diberikan serangkaian pertanyaan — setiap pertanyaan mewakili gejala tertentu dari kecanduan media sosial.
