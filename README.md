@@ -20,7 +20,7 @@
 ## 💻 Teknologi yang Digunakan
 - PHP (Laravel)
 - Blade Template Engine
-- MySQL
+- SQLite
 - HTML, CSS, JavaScript
 
 
